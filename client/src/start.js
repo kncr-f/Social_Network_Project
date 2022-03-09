@@ -1,30 +1,19 @@
 import ReactDOM from "react-dom";
-import HelloWorld from './hello';
+import Welcome from './welcome';
+import Logo from "./logo";
 
-ReactDOM.render(<HelloWorld greetee="kittyy" />, document.querySelector("main"));
+fetch("/user/id.json")
+    .then((resp) => resp.json())
+    .then((data) => {
+        console.log('data', data);
+        if (!data.userId) {
+            ReactDOM.render(<Welcome />, document.querySelector("main"));
 
-// function HelloWorld(props) {
-//     //return React.createElement("div", /*...*/)
-//     console.log(props);
-
-//     return (
-//         <div className="funky">
-//             Hello, {props.greetee}?!
-//             {props.greetee == 'kittyy' && <Greetee name={props.greetee} />}
-//         </div>
-//     );
-// }
+        } else {
+            ReactDOM.render(<Logo />, document.querySelector("main"));
+        }
+    });
 
 
-// function Greetee(props) {
-//     return (
-//         <p>
-//             <strong style={{
-//                 color: "tomato",
-//                 textDecoration: "underline"
-//             }}>
-//                 The greetee is {props.name}{props.name != "kittyy" ? "!" : "?"}
-//             </strong>
-//         </p>
-//     );
-// }
+
+

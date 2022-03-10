@@ -1,10 +1,22 @@
 import { Registration } from "./registration";
+import { BrowserRouter, Route } from 'react-router-dom';
+import Login from "./login";
 
 export default function Welcome() {
     return (
         <>
-            <h1>Welcome!</h1>
-            <Registration />
+            <BrowserRouter>
+                <h1>Welcome!</h1>
+                <Route path="/login">
+                    <Login />
+                </Route>
+
+                <Route exact path="/">
+                    <Registration />
+                </Route>
+
+            </BrowserRouter>
+
         </>
     );
 }

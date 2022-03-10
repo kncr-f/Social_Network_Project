@@ -10,3 +10,11 @@ module.exports.addUser = (first, last, email, password) => {
     
     `, [first, last, email, password]);
 };
+
+module.exports.getUser = (email) => {
+    return db.query(`
+    SELECT password, id 
+    FROM users
+    WHERE email = $1
+    `, [email]);
+};

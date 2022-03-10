@@ -1,5 +1,6 @@
 
 import { Component } from "react";
+import { Link } from "react-router-dom";
 
 export class Registration extends Component {
     constructor() {
@@ -80,6 +81,7 @@ export class Registration extends Component {
                     <input name="password" type="password" placeholder="password" onChange={this.handleChange}></input>
                     <button onClick={this.handleSubmit}>Register</button>
                 </form>
+                <Link to="/login"> got already account, Why don't you login?</Link>
             </>
 
         );

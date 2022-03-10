@@ -81,7 +81,7 @@ export class Registration extends Component {
                     <input name="password" type="password" placeholder="password" onChange={this.handleChange}></input>
                     <button onClick={this.handleSubmit}>Register</button>
                 </form>
-                <Link to="/login"> got already account, Why don't you login?</Link>
+                <Link to="/login"> got already account, click here to login?</Link>
             </>
 
         );

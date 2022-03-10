@@ -4,7 +4,8 @@ const compression = require("compression");
 const path = require("path");
 const db = require("../database/db");
 const { compare, hash } = require("../bc");
-
+const cryptoRandomString = require('crypto-random-string');
+const { sendEmail } = require("./ses.js");
 
 app.use(compression());
 
@@ -56,9 +57,7 @@ app.post("/user/login.json", (req, res) => {
     const { email, password } = req.body;
 
     // if (email === "" || password === "") {
-    //     res.render("error", {
-    //         layout: "main",
-    //     })
+    //     
     // } 
 
     db.getUser(email).then(({ rows }) => {
@@ -88,6 +87,72 @@ app.post("/user/login.json", (req, res) => {
 
 });
 
+app.post("/reset", (req, res) => {
+    const { email } = req.body;
+    db.getUser(email)
+        .then(({ rows }) => {
+            console.log('rows in post /reset', rows);
+            if (rows.length > 0) {
+
+                //it means there is a macht and it is a registered email
+                const secretCode = cryptoRandomString({
+                    length: 6
+                });
+                db.addSecretCode(email, secretCode)
+                    .then(({ rows }) => {
+                        console.log('addSecretCode rows...', rows);
+                        const emailMessage = `Your secret code is ${secretCode}`;
+                        sendEmail("inky.muenster@spicedling.email", emailMessage, "Update Your Password");
+                        res.json({ success: true });
+                    })
+                    .catch(() => {
+                        res.json({ success: false });
+                    });
+
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .catch(() => {
+            res.json({ success: false });
+        });
+
+
+});
+
+app.post("/verify", (req, res) => {
+    const { code, new_password, email } = req.body;
+    db.getSecretCode(email).then(({ rows }) => {
+
+        const reqBodyCode = code;
+        const sendedCode = rows[0].code;
+
+        console.log(reqBodyCode, sendedCode);
+        if (reqBodyCode == sendedCode) {
+            hash(new_password)
+                .then((hashedPassword) => {
+                    console.log(hashedPassword);
+                    db.updatePassword(hashedPassword, email)
+                        .then(() => {
+                            console.log("hereeee....");
+                            res.json({ success: true });
+                        })
+                        .catch((err) => {
+                            console.log("password updating failed", err);
+                            res.json({ success: false });
+                        });
+                })
+                .catch((err) => {
+                    console.log("password reseting failed", err);
+                    res.json({ success: false });
+                });
+
+        } else {
+            res.json({ succes: false });
+        }
+    });
+
+});
 
 
 app.get("/logout", (req, res) => {

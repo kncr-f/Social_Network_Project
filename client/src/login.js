@@ -1,4 +1,6 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
+
 export default class Login extends Component {
     constructor() {
         super();
@@ -70,7 +72,8 @@ export default class Login extends Component {
                     <input name="password" type="password" placeholder="password" onChange={this.handleChange} ></input>
                     <button onClick={this.handleLogin} >Register</button>
                 </form>
-
+                <Link to="/"> Don't have an account?, click here to register?</Link>
+                <Link to="/reset"> click here to reset the password</Link>
 
             </>
 

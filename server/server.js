@@ -7,6 +7,31 @@ const { compare, hash } = require("../bc");
 const cryptoRandomString = require('crypto-random-string');
 const { sendEmail } = require("./ses.js");
 
+//upload process
+const s3 = require("../s3");
+
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, path.join(__dirname, "/uploads"));
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then((uid) => {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
+
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
@@ -45,7 +70,7 @@ app.post("/user/register.json", (req, res) => {
                 //console.log('req.session', req.session);
                 res.json({ success: true });
             }).catch((err) => {
-                console.log("error getting data from database", err)
+                console.log("error getting data from database", err);
                 res.json({ success: false });
             });
     });
@@ -126,8 +151,8 @@ app.post("/verify", (req, res) => {
 
         const reqBodyCode = code;
         const sendedCode = rows[0].code;
-
         console.log(reqBodyCode, sendedCode);
+
         if (reqBodyCode == sendedCode) {
             hash(new_password)
                 .then((hashedPassword) => {
@@ -154,6 +179,29 @@ app.post("/verify", (req, res) => {
 
 });
 
+
+app.get("/user", (req, res) => {
+    db.getLoggedUser(req.session.userId)
+        .then(({ rows }) => {
+            console.log('rows in /user route...', rows[0]);
+            res.json(rows[0]);
+        }).catch((err) => console.log("getting looged user failed", err));
+});
+
+
+app.post("/profile_pic", uploader.single("file"), s3.upload, (req, res) => {
+    console.log('hreree');
+    let id = req.session.userId;
+    let url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
+    db.updateImage(url, id).then(({ rows }) => {
+        console.log('rows /profile_pic in server....', rows);
+        res.json({ profile_pic: rows[0].profile_pic });
+    }).catch((err) => {
+        console.log('error updating image', err);
+    });
+
+
+});
 
 app.get("/logout", (req, res) => {
     req.session = null;

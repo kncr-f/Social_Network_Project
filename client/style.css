@@ -1,3 +1,26 @@
 body {
     background-color: ghostwhite;
 }
+main {
+    background-color: cornsilk;
+    min-height: 80vh;
+}
+header .navbar-nav {
+    margin-left: auto;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+h1 {
+    text-align: center;
+}
+.linkcenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

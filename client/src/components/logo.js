@@ -1,19 +1,15 @@
-
+import { Image } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 export default function Logo() {
-    const style = {
-        width: "200px",
-        height: "200px",
-    };
+
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center" }}>
-                <img
-                    style={style}
-                    src="./images.png"
-                    alt="logo"
-                />
-            </div>
+            <Container>
+
+                <Image className="rounded float-start img-fluid img-thumbnail" src="./download.png"></Image>
+            </Container>
+
 
 
         </>

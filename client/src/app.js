@@ -2,6 +2,10 @@ import { Component } from "react";
 import { ProfilePic } from "./components/profile_pic";
 import { Uploader } from "./components/uploader";
 import Logo from "./components/logo";
+import Footer from "../src/components/footer";
+import Header from "../src/components/Header";
+import { Container } from "react-bootstrap";
+
 
 export class App extends Component {
     constructor() {
@@ -46,22 +50,31 @@ export class App extends Component {
 
     render() {
         return (
-            <div>
-                <Logo />
-                <ProfilePic
-                    url={this.state.profile_pic}
-                    first={this.state.first}
-                    last={this.state.last}
-                    showUploader={this.toggleUploader} />
+            <>
 
-                {this.state.uploaderVisible &&
-                    <Uploader
-                        id={this.state.id}
-                        hideUploader={this.toggleUploader}
-                        updateProfilePic={this.updateProfilePic}
-                        url={this.state.profile_pic}
-                    />}
-            </div>
+                <Header />
+                <main>
+                    <Container>
+
+
+                        <Logo />
+                        <ProfilePic
+                            url={this.state.profile_pic}
+                            first={this.state.first}
+                            last={this.state.last}
+                            showUploader={this.toggleUploader} />
+
+                        {this.state.uploaderVisible &&
+                            <Uploader
+                                id={this.state.id}
+                                hideUploader={this.toggleUploader}
+                                updateProfilePic={this.updateProfilePic}
+                                url={this.state.profile_pic}
+                            />}
+                    </Container>
+                </main>
+                <Footer />
+            </>
         );
 
     }

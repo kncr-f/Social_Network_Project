@@ -1,4 +1,7 @@
 import { Component } from "react";
+import { Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 export class Uploader extends Component {
 
@@ -36,8 +39,6 @@ export class Uploader extends Component {
         })
             .then(resp => resp.json())
             .then((data) => {
-                console.log('resp in fetch /profile_pic.......', data);
-                // this.images.unshift(resp);
 
                 this.props.updateProfilePic(data.profile_pic);
 
@@ -45,26 +46,46 @@ export class Uploader extends Component {
             .catch(err => console.log('err in upload', err));
 
 
-
-
-
-        // const data= new FormData
-        //append your file to it use the sstate
-        // send data over to the serever qith wa fetch request
-        // if the request is successful update the profilepic
-        //propery form the state of app (use updateProfilePic)
     }
 
     render() {
         return (
-            <div>
-                <div onClick={this.props.hideUploader}>❌</div>
-                <form onSubmit={(e) => this.handleSubmit(e)}>
-                    <input name="profile_pic" type="file" onChange={this.handleChange} />
-                    <button>Upload</button>
+            <>
 
-                </form>
-            </div>
+                <Modal.Dialog>
+                    <Modal.Header onClick={this.props.hideUploader} closeButton>
+                        <Modal.Title>Change Your Image</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <p> Do you want to change your image? We'll never share your Information with anyone else.</p>
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Form onSubmit={(e) => this.handleSubmit(e)}>
+                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                <Form.Label>Upload an Image</Form.Label>
+                                <Form.Control name="profile_pic" type="file" placeholder="Upload an Image" onChange={this.handleChange} />
+                            </Form.Group>
+                            <Button variant="primary" type="submit" >
+                                Upload
+                            </Button>
+                            <Button variant="secondary" onClick={this.props.hideUploader}>Cancel</Button>
+                        </Form>
+                    </Modal.Footer>
+                </Modal.Dialog>
+
+                {/* <div>
+                    <div onClick={this.props.hideUploader}>❌</div>
+                    <form onSubmit={(e) => this.handleSubmit(e)}>
+                        <input name="profile_pic" type="file" onChange={this.handleChange} />
+                        <button>Upload</button>
+
+                    </form>
+                </div> */}
+            </>
+
+
         );
     }
 }

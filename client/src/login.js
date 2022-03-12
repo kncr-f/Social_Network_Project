@@ -1,5 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+
 
 export default class Login extends Component {
     constructor() {
@@ -63,6 +66,29 @@ export default class Login extends Component {
         return (
             <>
                 <h1>Login!</h1>
+                <Form>
+
+                    <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleChange} />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicPassword">
+                        <Form.Label >Password</Form.Label>
+                        <Form.Control name="password" type="password" placeholder="Password" onChange={this.handleChange} />
+                    </Form.Group>
+
+
+
+                    <Button className="mb-4" variant="primary" type="submit" onClick={this.handleLogin}>
+                        Submit
+                    </Button>
+                </Form>
+
+                {/* <h1>Login!</h1>
                 {this.state.error && <h2 style={{ color: "red" }}>
                     {this.state.error} something went wrong
                 </h2>}
@@ -71,9 +97,11 @@ export default class Login extends Component {
                     <input name="email" type="text" placeholder="email" onChange={this.handleChange}></input>
                     <input name="password" type="password" placeholder="password" onChange={this.handleChange} ></input>
                     <button onClick={this.handleLogin} >Register</button>
-                </form>
-                <Link to="/"> Don't have an account?, click here to register?</Link>
-                <Link to="/reset"> click here to reset the password</Link>
+                </form> */}
+                <Link className=" linkcenter" to="/">Return Registration</Link>
+                <Link className=" linkcenter" to="/reset">Reset Password</Link>
+
+
 
             </>
 

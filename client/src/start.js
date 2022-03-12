@@ -7,10 +7,10 @@ fetch("/user/id.json")
     .then((data) => {
         console.log('data', data);
         if (!data.userId) {
-            ReactDOM.render(<Welcome />, document.querySelector("main"));
+            ReactDOM.render(<Welcome />, document.getElementById("root"));
 
         } else {
-            ReactDOM.render(<App />, document.querySelector("main"));
+            ReactDOM.render(<App />, document.getElementById("root"));
         }
     });
 

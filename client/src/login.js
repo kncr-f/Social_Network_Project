@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
-import { Col, Row } from "react-bootstrap";
+import { Form, Col, Button } from "react-bootstrap";
 
 
 export default class Login extends Component {
@@ -72,7 +71,7 @@ export default class Login extends Component {
                         <Form.Label>Email address</Form.Label>
                         <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleChange} />
                         <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                            We  will never share your email with anyone else.
                         </Form.Text>
                     </Form.Group>
 

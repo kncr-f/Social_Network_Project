@@ -1,9 +1,7 @@
 
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Col, Row } from "react-bootstrap";
+import { Col, Form, Button } from "react-bootstrap";
 
 
 export class Registration extends Component {
@@ -109,7 +107,7 @@ export class Registration extends Component {
 
                     <Form.Group className="mb-3">
                         <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                            We will never share your information with anyone else.
                         </Form.Text>
                     </Form.Group>
 

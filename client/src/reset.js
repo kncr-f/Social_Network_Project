@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import { Container, Form, Col, Row, Button } from "react-bootstrap";
+import { Container, Form, Col, Button } from "react-bootstrap";
 
 export default class Reset extends Component {
     constructor() {

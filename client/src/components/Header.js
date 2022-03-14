@@ -4,24 +4,13 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 
 
 const Header = () => {
-    // var isUser;
-    // fetch("/user/id.json")
-    //     .then((resp) => resp.json())
-    //     .then((data) => {
-    //         console.log('data', data);
-    //         if (!data.userId) {
-    //             isUser = false;
-    //         } else {
-    //             isUser = true;
 
-    //         }
-    //     });
     return (
         <header>
             <Navbar bg="dark" variant="light" expand="lg" collapseOnSelect>
                 <Container>
 
-                    <Navbar.Brand href="/">Let's Socialize</Navbar.Brand>
+                    <Navbar.Brand href="/">Lets Socialize</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
 

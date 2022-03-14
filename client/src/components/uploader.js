@@ -1,12 +1,15 @@
 import { Component } from "react";
-import { Modal } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { Form } from "react-bootstrap";
+
+import { Button, Form, Modal } from "react-bootstrap";
+
 
 export class Uploader extends Component {
 
     constructor(props) {
         super(props);
+        // this.state = {
+        //     profile_pic: this.props.profile_pic,
+        // };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,6 +44,9 @@ export class Uploader extends Component {
             .then((data) => {
 
                 this.props.updateProfilePic(data.profile_pic);
+                // this.setState({
+                //     profile_pic: data.profile_pic
+                // });
 
             })
             .catch(err => console.log('err in upload', err));
@@ -58,7 +64,7 @@ export class Uploader extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <p> Do you want to change your image? We'll never share your Information with anyone else.</p>
+                        <p> Do you want to change your image? We will never share your Information with anyone else.</p>
                     </Modal.Body>
 
                     <Modal.Footer>

@@ -62,3 +62,12 @@ module.exports.updateImage = (url, id) => {
     RETURNING profile_pic`, [url, id]);
 
 };
+
+module.exports.getBioText = (bio_text, id) => {
+    return db.query(`
+    UPDATE users
+    SET bio_text =$1
+    WHERE id=$2
+    RETURNING *
+    `, [bio_text, id]);
+};

@@ -190,16 +190,31 @@ app.get("/user", (req, res) => {
 
 
 app.post("/profile_pic", uploader.single("file"), s3.upload, (req, res) => {
-    console.log('hreree');
+
     let id = req.session.userId;
     let url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
     db.updateImage(url, id).then(({ rows }) => {
-        console.log('rows /profile_pic in server....', rows);
+        //console.log('rows /profile_pic in server....', rows);
         res.json({ profile_pic: rows[0].profile_pic });
     }).catch((err) => {
         console.log('error updating image', err);
     });
 
+
+});
+
+app.post("/user/profile/bio", (req, res) => {
+    console.log('req.body', req.body);
+    const { draftBio } = req.body;
+
+    db.getBioText(draftBio, req.session.userId)
+        .then(({ rows }) => {
+            console.log("get bio text in server", rows);
+            res.json(rows[0].bio_text);
+        })
+        .catch((err) => {
+            console.log('error getting bio_text', err);
+        });
 
 });
 

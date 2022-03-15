@@ -7,10 +7,15 @@ const Loading = () => {
             animation="border"
             role="status"
             style={{
-                width: "50px",
-                height: "50px",
+                width: "100px",
+                height: "100px",
                 margin: "auto",
                 display: "block",
+
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50 %, -50 %)"
             }}>
             <span className='sr-only'>Loading...</span>
         </Spinner>

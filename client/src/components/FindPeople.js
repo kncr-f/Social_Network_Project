@@ -15,7 +15,7 @@ const FindPeople = () => {
                 if (!abort) {
                     setUsers(users);
                 }
-                // setUsers(users);
+
 
             });
         return () => (abort = true);

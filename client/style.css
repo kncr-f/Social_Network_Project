@@ -8,7 +8,15 @@ main {
 header .navbar-nav {
     margin-left: auto;
 }
-
+.col {
+    margin: 15px auto;
+}
+.uploader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 form {
     display: flex;
     justify-content: center;

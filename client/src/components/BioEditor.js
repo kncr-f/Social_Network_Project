@@ -1,4 +1,6 @@
 import React from 'react';
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+
 
 export default class BioEditor extends React.Component {
     constructor(props) {
@@ -15,7 +17,7 @@ export default class BioEditor extends React.Component {
     }
 
     handleChange(e) {
-        console.log('user typed:', e.target.value);
+        //console.log('user typed:', e.target.value);
 
         this.setState({
 
@@ -30,12 +32,12 @@ export default class BioEditor extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("user clicked the button", this.state);
+        console.log("user clicked the button");
 
         this.setState({
             editMode: false
         }, () => {
-            console.log('save click', this.props.bio);
+            console.log('save click');
         });
 
         fetch("/user/profile/bio", {
@@ -47,7 +49,7 @@ export default class BioEditor extends React.Component {
         })
             .then(resp => resp.json())
             .then(data => {
-                console.log("biotext here seccess.....", data);
+                //console.log("biotext here seccess.....", data);
                 this.props.setBio(data);
 
             })
@@ -71,30 +73,56 @@ export default class BioEditor extends React.Component {
     render() {
         return (
             <>
+                <Container>
 
-                {this.state.editMode && (
-                    <form onSubmit={(e) => this.handleSubmit(e)}>
-                        <textarea
-                            name="bio_text"
-                            type="text"
-                            onChange={this.handleChange}
-                            defaultValue={this.props.bio}
-                        >
-                        </textarea>
-                        <button>save</button>
-                    </form>
-                )}
-                {!this.state.editMode && this.props.bio && (
-                    <div>
-                        {this.props.bio}
-                        <button onClick={() => this.handleClick()}>edit</button>
-                    </div>
-                )}
-                {!this.state.editMode && !this.props.bio && (
-                    <div>
-                        <button onClick={() => this.handleClick()}>Add</button>
-                    </div>
-                )}
+
+                    {this.state.editMode && (
+                        <Form onSubmit={(e) => this.handleSubmit(e)}>
+                            <Form.Control
+                                as="textarea"
+                                placeholder='Add your bio here'
+                                style={{ height: "100px" }}
+                                name="bio_text"
+                                type="text"
+                                onChange={this.handleChange}
+                                defaultValue={this.props.bio}
+                            >
+                            </Form.Control>
+                            <Button type='submit' className="mb-4" variant="primary">
+                                Save
+                            </Button>
+                        </Form>
+                    )}
+                    {!this.state.editMode && this.props.bio && (
+                        <>
+                            <Row>
+                                {this.props.bio}
+                            </Row>
+                            <Row>
+                                <Button as={Col} sm="3" onClick={() => this.handleClick()} className="mb-4" variant="primary"> Edit </Button >
+
+                            </Row>
+
+
+                        </>
+
+
+                    )}
+                    {!this.state.editMode && !this.props.bio && (
+                        // <div>
+                        //     <button onClick={() => this.handleClick()}>Add Bio</button>
+                        // </div>
+                        <>
+                            <Row>
+                                <Button as={Col} sm="3" onClick={() => this.handleClick()} className="mb-4" variant="primary"> Add Bio </Button >
+
+                            </Row>
+                        </>
+
+                    )}
+
+
+                </Container>
             </>
         );
     }

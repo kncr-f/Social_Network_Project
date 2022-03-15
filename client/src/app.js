@@ -6,6 +6,11 @@ import Logo from "./components/logo";
 import Footer from "../src/components/footer";
 import Header from "../src/components/Header";
 import { Container, Row, Col } from "react-bootstrap";
+import FindPeople from "./components/FindPeople";
+import { BrowserRouter, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+
 
 
 export class App extends Component {
@@ -25,12 +30,14 @@ export class App extends Component {
     }
 
     componentDidMount() {
-        fetch("/user")
+        fetch("/user.json")
             .then(resp => resp.json())
             .then((data) => {
-                console.log('data...', data);
+                console.log('data fetch /user in app', data);
 
                 this.setState({
+                    first: data.first,
+                    last: data.last,
                     profile_pic: data.profile_pic,
                     bio: data.bio_text
                 });
@@ -74,8 +81,9 @@ export class App extends Component {
                             </Col>
 
                             <Col>
+
                                 <ProfilePic
-                                    style={{ width: "100px", heigth: "100px" }}
+                                    style={{ width: "100px", height: "100px", cursor: "pointer" }}
                                     url={this.state.profile_pic}
                                     first={this.state.first}
                                     last={this.state.last}
@@ -84,17 +92,29 @@ export class App extends Component {
                                 />
                             </Col>
                         </Row>
+                        <BrowserRouter>
+                            <Route exact path="/">
+                                <Profile
+                                    id={this.state.id}
+                                    url={this.state.profile_pic}
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    showUploader={this.toggleUploader}
+                                    bio={this.state.bio}
+                                    setBio={this.setBio}
 
-                        <Profile
-                            id={this.state.id}
-                            url={this.state.profile_pic}
-                            first={this.state.first}
-                            last={this.state.last}
-                            showUploader={this.toggleUploader}
-                            bio={this.state.bio}
-                            setBio={this.setBio}
+                                />
+                                <Link className="p-6 linkcenter" to="/users"> Click here to find more people...</Link>
 
-                        />
+                            </Route>
+
+                            <Route path="/users">
+                                <FindPeople />
+                            </Route>
+
+
+                        </BrowserRouter>
+
 
                         {this.state.uploaderVisible &&
                             <Uploader

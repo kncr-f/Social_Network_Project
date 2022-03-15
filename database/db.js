@@ -48,7 +48,7 @@ module.exports.updatePassword = (password, email) => {
 
 module.exports.getLoggedUser = (id) => {
     return db.query(`
-    SELECT *
+    SELECT id, first, last, profile_pic, bio_text
     FROM users
     WHERE id = $1
     `, [id]);
@@ -70,4 +70,19 @@ module.exports.getBioText = (bio_text, id) => {
     WHERE id=$2
     RETURNING *
     `, [bio_text, id]);
+};
+
+module.exports.getRecentUsers = () => {
+    return db.query(`SELECT * 
+                    FROM users 
+                    ORDER BY created_at DESC
+                    LIMIT 4`);
+};
+
+module.exports.getMatchingUsers = (val) => {
+    return db.query(`
+    SELECT * FROM users
+    WHERE first ILIKE $1;
+    `, [val + "%"]
+    );
 };

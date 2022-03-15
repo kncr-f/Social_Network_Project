@@ -180,10 +180,10 @@ app.post("/verify", (req, res) => {
 });
 
 
-app.get("/user", (req, res) => {
+app.get("/user.json", (req, res) => {
     db.getLoggedUser(req.session.userId)
         .then(({ rows }) => {
-            console.log('rows in /user route...', rows[0]);
+            console.log('rows in /user.json route...', rows[0]);
             res.json(rows[0]);
         }).catch((err) => console.log("getting looged user failed", err));
 });
@@ -215,6 +215,33 @@ app.post("/user/profile/bio", (req, res) => {
         .catch((err) => {
             console.log('error getting bio_text', err);
         });
+
+});
+
+app.get("/users.json", (req, res) => {
+
+    const searchTerm = req.query.search;
+    console.log("searchTerm...", searchTerm);
+    if (searchTerm) {
+        db.getMatchingUsers(searchTerm)
+            .then(({ rows }) => {
+                console.log("matching users..", rows);
+                res.json(rows);
+            }).catch((err) => {
+                console.log("err with getting matchingUsers", err);
+            });
+
+    } else {
+        db.getRecentUsers()
+            .then(({ rows }) => {
+                console.log("users row.....", rows);
+                res.json(rows);
+            }).catch((err) => {
+                console.log("err with getting users", err);
+            });
+    }
+
+
 
 });
 

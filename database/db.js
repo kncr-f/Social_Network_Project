@@ -11,7 +11,7 @@ module.exports.addUser = (first, last, email, password) => {
     `, [first, last, email, password]);
 };
 
-module.exports.getUser = (email) => {
+module.exports.getUserByEmail = (email) => {
     return db.query(`
     SELECT password, id 
     FROM users
@@ -46,11 +46,11 @@ module.exports.updatePassword = (password, email) => {
     `, [password, email]);
 };
 
-module.exports.getLoggedUser = (id) => {
+module.exports.getUserById = (id) => {
     return db.query(`
     SELECT id, first, last, profile_pic, bio_text
     FROM users
-    WHERE id = $1
+    WHERE id = $1 
     `, [id]);
 };
 
@@ -86,3 +86,4 @@ module.exports.getMatchingUsers = (val) => {
     `, [val + "%"]
     );
 };
+

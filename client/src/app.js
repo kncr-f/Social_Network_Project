@@ -7,8 +7,8 @@ import Footer from "../src/components/footer";
 import Header from "../src/components/Header";
 import { Container, Row, Col } from "react-bootstrap";
 import FindPeople from "./components/FindPeople";
-import { BrowserRouter, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import OtherProfile from "./components/OtherProfile";
 
 
 
@@ -17,6 +17,7 @@ export class App extends Component {
     constructor() {
         super();
         this.state = {
+
             first: "",
             last: "",
             profile_pic: "",
@@ -33,13 +34,15 @@ export class App extends Component {
         fetch("/user.json")
             .then(resp => resp.json())
             .then((data) => {
-                console.log('data fetch /user in app', data);
+                //console.log('data fetch /user in app', data);
 
                 this.setState({
+                    id: data.id,
                     first: data.first,
                     last: data.last,
                     profile_pic: data.profile_pic,
-                    bio: data.bio_text
+                    bio: data.bio_text,
+
                 });
 
             }).catch(err => console.log(" getting user failed:", err));
@@ -70,6 +73,9 @@ export class App extends Component {
 
 
     render() {
+        if (!this.state.id) {
+            return <h1>loading</h1>;
+        }
         return (
             <>
                 <Header />
@@ -108,8 +114,9 @@ export class App extends Component {
 
                             </Route>
 
-                            <Route path="/users">
-                                <FindPeople />
+                            <Route path="/users" component={FindPeople} />
+                            <Route path="/user/:otherUserId">
+                                <OtherProfile currentId={this.state.id} />
                             </Route>
 
 

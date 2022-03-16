@@ -62,7 +62,7 @@ export default class BioEditor extends React.Component {
 
     handleClick() {
         this.setState({
-
+            draftBio: this.props.bio,
             editMode: true
 
         }, () => {
@@ -74,8 +74,6 @@ export default class BioEditor extends React.Component {
         return (
             <>
                 <Container>
-
-
                     {this.state.editMode && (
                         <Form onSubmit={(e) => this.handleSubmit(e)}>
                             <Form.Control
@@ -109,9 +107,7 @@ export default class BioEditor extends React.Component {
 
                     )}
                     {!this.state.editMode && !this.props.bio && (
-                        // <div>
-                        //     <button onClick={() => this.handleClick()}>Add Bio</button>
-                        // </div>
+
                         <>
                             <Row>
                                 <Button as={Col} sm="3" onClick={() => this.handleClick()} className="mb-4" variant="primary"> Add Bio </Button >

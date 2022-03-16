@@ -85,7 +85,7 @@ app.post("/user/login.json", (req, res) => {
     //     
     // } 
 
-    db.getUser(email).then(({ rows }) => {
+    db.getUserByEmail(email).then(({ rows }) => {
         console.log(rows);
         if (rows.length > 0) {
             compare(password, rows[0].password).then((match) => {
@@ -114,7 +114,7 @@ app.post("/user/login.json", (req, res) => {
 
 app.post("/reset", (req, res) => {
     const { email } = req.body;
-    db.getUser(email)
+    db.getUserByEmail(email)
         .then(({ rows }) => {
             console.log('rows in post /reset', rows);
             if (rows.length > 0) {
@@ -156,7 +156,7 @@ app.post("/verify", (req, res) => {
         if (reqBodyCode == sendedCode) {
             hash(new_password)
                 .then((hashedPassword) => {
-                    console.log(hashedPassword);
+                    //console.log(hashedPassword);
                     db.updatePassword(hashedPassword, email)
                         .then(() => {
                             console.log("hereeee....");
@@ -181,9 +181,9 @@ app.post("/verify", (req, res) => {
 
 
 app.get("/user.json", (req, res) => {
-    db.getLoggedUser(req.session.userId)
+    db.getUserById(req.session.userId)
         .then(({ rows }) => {
-            console.log('rows in /user.json route...', rows[0]);
+            //console.log('rows in /user.json route...', rows[0]);
             res.json(rows[0]);
         }).catch((err) => console.log("getting looged user failed", err));
 });
@@ -204,12 +204,12 @@ app.post("/profile_pic", uploader.single("file"), s3.upload, (req, res) => {
 });
 
 app.post("/user/profile/bio", (req, res) => {
-    console.log('req.body', req.body);
+    // console.log('req.body', req.body);
     const { draftBio } = req.body;
 
     db.getBioText(draftBio, req.session.userId)
         .then(({ rows }) => {
-            console.log("get bio text in server", rows);
+            // console.log("get bio text in server", rows);
             res.json(rows[0].bio_text);
         })
         .catch((err) => {
@@ -225,7 +225,7 @@ app.get("/users.json", (req, res) => {
     if (searchTerm) {
         db.getMatchingUsers(searchTerm)
             .then(({ rows }) => {
-                console.log("matching users..", rows);
+                // console.log("matching users..", rows);
                 res.json(rows);
             }).catch((err) => {
                 console.log("err with getting matchingUsers", err);
@@ -234,7 +234,7 @@ app.get("/users.json", (req, res) => {
     } else {
         db.getRecentUsers()
             .then(({ rows }) => {
-                console.log("users row.....", rows);
+                // console.log("users row.....", rows);
                 res.json(rows);
             }).catch((err) => {
                 console.log("err with getting users", err);
@@ -244,6 +244,26 @@ app.get("/users.json", (req, res) => {
 
 
 });
+
+
+app.get("/user_info/:id", (req, res) => {
+    const { id } = req.params;
+    console.log(id);
+    db.getUserById(id)
+        .then(({ rows }) => {
+            console.log('rows in /user_info/:id.json route...', rows[0]);
+
+            if (typeof rows[0] === "undefined") {
+                res.json({ success: false });
+
+            } else {
+                res.json(rows[0]);
+            }
+
+
+        }).catch((err) => console.log("getting otherUser failed", err));
+});
+
 
 app.get("/logout", (req, res) => {
     req.session = null;

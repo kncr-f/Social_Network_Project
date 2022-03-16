@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+
 
 const FindPeople = () => {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [users, setUsers] = useState([]);
+    const history = useHistory();
+
 
     useEffect(() => {
         let abort = false;
@@ -11,7 +15,7 @@ const FindPeople = () => {
         fetch(`/users.json?search=${searchTerm}`)
             .then((res) => res.json())
             .then((users) => {
-                console.log('users...', users);
+                // console.log('users...', users);
                 if (!abort) {
                     setUsers(users);
                 }
@@ -22,6 +26,10 @@ const FindPeople = () => {
 
     }, [searchTerm]);
 
+    const handleClick = (arg) => {
+        history.push(`/user/${arg}`);
+    };
+
     return (
         <>
             <h1>Find People Component</h1>
@@ -31,7 +39,7 @@ const FindPeople = () => {
                 <ul>
                     {users.map((user) => (
                         <li key={user.id}>
-                            <img src={user.profile_pic} />
+                            <img onClick={() => handleClick(user.id)} src={user.profile_pic} />
                             <h3>{user.first} {user.last}</h3>
                             <p>{user.bio_text}</p>
                         </li>

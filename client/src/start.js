@@ -5,7 +5,7 @@ import { App } from "./app";
 fetch("/user/id.json")
     .then((resp) => resp.json())
     .then((data) => {
-        console.log('data', data);
+        //console.log('data', data);
         if (!data.userId) {
             ReactDOM.render(<Welcome />, document.getElementById("root"));
 

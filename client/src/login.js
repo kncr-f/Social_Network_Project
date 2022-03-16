@@ -47,7 +47,7 @@ export default class Login extends Component {
             .then(data => {
                 console.log("login data..", data);
                 if (data.success) {
-                    location.reload();
+                    location.replace("/");
                 } else {
                     this.setState({ error: "whooopsieeee..." });
                 }
@@ -65,7 +65,7 @@ export default class Login extends Component {
         return (
             <>
                 <h1>Login!</h1>
-                <Form>
+                <Form onClick={this.handleLogin}>
 
                     <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
@@ -80,23 +80,12 @@ export default class Login extends Component {
                         <Form.Control name="password" type="password" placeholder="Password" onChange={this.handleChange} />
                     </Form.Group>
 
-
-
-                    <Button className="mb-4" variant="primary" type="submit" onClick={this.handleLogin}>
+                    <Button className="mb-4" variant="primary" type="submit" >
                         Submit
                     </Button>
                 </Form>
 
-                {/* <h1>Login!</h1>
-                {this.state.error && <h2 style={{ color: "red" }}>
-                    {this.state.error} something went wrong
-                </h2>}
-                <form>
 
-                    <input name="email" type="text" placeholder="email" onChange={this.handleChange}></input>
-                    <input name="password" type="password" placeholder="password" onChange={this.handleChange} ></input>
-                    <button onClick={this.handleLogin} >Register</button>
-                </form> */}
                 <Link className=" linkcenter" to="/">Return Registration</Link>
                 <Link className=" linkcenter" to="/reset">Reset Password</Link>
 

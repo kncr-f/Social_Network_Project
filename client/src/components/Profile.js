@@ -10,11 +10,11 @@ const Profile = (props) => {
         height: "300px",
         cursor: "pointer"
     };
-    console.log("props in profile", props);
+    //console.log("props in profile", props);
     return (
         <>
             <Container >
-                <h1> profile page</h1>
+                <h1 className="profileTitle"> Profile Page</h1>
                 <Row>
                     <Col>
                         <ProfilePic

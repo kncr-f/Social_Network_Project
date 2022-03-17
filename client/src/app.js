@@ -9,6 +9,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import FindPeople from "./components/FindPeople";
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import OtherProfile from "./components/OtherProfile";
+import Loading from "./components/Loading";
 
 
 
@@ -74,31 +75,43 @@ export class App extends Component {
 
     render() {
         if (!this.state.id) {
-            return <h1>loading</h1>;
+            return <Loading />;
         }
         return (
             <>
                 <Header />
                 <main>
                     <Container>
-                        <Row>
-                            <Col>
-                                <Logo />
-                            </Col>
-
-                            <Col>
-
-                                <ProfilePic
-                                    style={{ width: "100px", height: "100px", cursor: "pointer" }}
-                                    url={this.state.profile_pic}
-                                    first={this.state.first}
-                                    last={this.state.last}
-                                    showUploader={this.toggleUploader}
-
-                                />
-                            </Col>
-                        </Row>
                         <BrowserRouter>
+                            <Row>
+                                <Col>
+                                    <Logo />
+                                </Col>
+
+                                <Col className="m-auto linkcenter">
+                                    <Link to="/"> <i className="fa-solid fa-user"></i> Return Profile</Link>
+
+                                </Col>
+
+                                <Col className="m-auto rightcenter">
+                                    <Link to="/users"> <i className="fa-solid fa-users"></i> Find More People</Link>
+
+                                </Col>
+
+                                <Col>
+
+                                    <ProfilePic
+                                        style={{ width: "100px", height: "100px", cursor: "pointer" }}
+                                        url={this.state.profile_pic}
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        showUploader={this.toggleUploader}
+
+                                    />
+                                </Col>
+
+                            </Row>
+
                             <Route exact path="/">
                                 <Profile
                                     id={this.state.id}
@@ -110,7 +123,6 @@ export class App extends Component {
                                     setBio={this.setBio}
 
                                 />
-                                <Link className="p-6 linkcenter" to="/users"> Click here to find more people...</Link>
 
                             </Route>
 

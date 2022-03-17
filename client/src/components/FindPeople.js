@@ -19,8 +19,6 @@ const FindPeople = () => {
                 if (!abort) {
                     setUsers(users);
                 }
-
-
             });
         return () => (abort = true);
 
@@ -38,7 +36,7 @@ const FindPeople = () => {
                 <div>{searchTerm}</div>
                 <ul>
                     {users.map((user) => (
-                        <li key={user.id}>
+                        <li onClick={() => handleClick(user.id)} key={user.id}>
                             <img onClick={() => handleClick(user.id)} src={user.profile_pic} />
                             <h3>{user.first} {user.last}</h3>
                             <p>{user.bio_text}</p>

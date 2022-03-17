@@ -2,6 +2,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import { Col, Form, Button } from "react-bootstrap";
+import Error from "./components/Error";
 
 
 export class Registration extends Component {
@@ -21,10 +22,7 @@ export class Registration extends Component {
     }
 
     handleChange(e) {
-        //console.log("user changed the input");
-        //console.log('user typed:', e.target.value);
-        //console.log("which input field got updated", e.target.name);
-        //setState takes an object contaiiing a satate update that we want  to run and takes an optional second argument, that is a callback function
+
         this.setState({
             [e.target.name]: e.target.value,
         }, () => {
@@ -34,7 +32,7 @@ export class Registration extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // console.log("user clicked the button", this.state);
+
 
         if (!this.state.first || !this.state.last || !this.state.email || !this.state.password) {
             this.setState({
@@ -72,11 +70,9 @@ export class Registration extends Component {
         return (
             <>
                 <h1>Registration!</h1>
-                {this.state.error && <h2 style={{ color: "red" }}>
-                    {this.state.error}
-                </h2>}
+                {this.state.error && <Error variant="danger"> Please fill all the requiered fields</Error>}
 
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
 
                     <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicEmail">
                         <Form.Label >First Name</Form.Label>
@@ -111,22 +107,11 @@ export class Registration extends Component {
                         </Form.Text>
                     </Form.Group>
 
-                    <Button className="mb-4" variant="primary" type="submit" onClick={this.handleSubmit}>
+                    <Button className="mb-4" variant="primary" type="submit">
                         Submit
                     </Button>
                 </Form>
-                {/* {this.state.error && <h2 style={{ color: "red" }}>
-                    {this.state.error} something went wrong
-                </h2>}
-                <form>
 
-                    <input name="first" type="text" placeholder="first" onChange={this.handleChange}></input>
-                    <input name="last" type="text" placeholder="last" onChange={this.handleChange}></input>
-                    <input name="email" type="text" placeholder="email" onChange={this.handleChange}></input>
-
-                    <input name="password" type="password" placeholder="password" onChange={this.handleChange}></input>
-                    <button onClick={this.handleSubmit}>Register</button>
-                </form> */}
                 <Link className="p-6 linkcenter" to="/login"> Click here to login...</Link>
             </>
 

@@ -87,3 +87,38 @@ module.exports.getMatchingUsers = (val) => {
     );
 };
 
+module.exports.getFriendRequests = (sender_id, recipient_id) => {
+    return db.query(`
+    SELECT * FROM friendships
+    WHERE (recipient_id = $1 AND sender_id = $2)
+    OR (recipient_id = $2 AND sender_id = $1);
+    `, [sender_id, recipient_id]
+    );
+};
+
+
+module.exports.makeFriendRequest = (sender_id, recipient_id) => {
+    return db.query(`
+    INSERT INTO friendships (sender_id, recipient_id, accepted)
+    VALUES ($1, $2, false)
+    RETURNING *
+    
+    `, [sender_id, recipient_id]);
+};
+
+module.exports.acceptFriendRequest = (sender_id, recipient_id) => {
+    return db.query(`
+    UPDATE friendships
+    SET accepted = true 
+    WHERE sender_id =$1 AND recipient_id=$2
+  `, [sender_id, recipient_id]);
+};
+
+
+module.exports.deleteFriendships = (sender_id, recipient_id) => {
+    return db.query(`
+    DELETE FROM frienships 
+    WHERE sender_id =$1 AND recipient_id=$2
+    `, [sender_id, recipient_id]);
+};
+

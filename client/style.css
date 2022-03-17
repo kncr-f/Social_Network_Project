@@ -1,8 +1,10 @@
 body {
     background-color: ghostwhite;
+    color: brown;
 }
 main {
-    background-color: cornsilk;
+    /* background-color: floralwhite; */
+    background-color: azure;
     min-height: 84vh;
 }
 header .navbar-nav {
@@ -23,8 +25,14 @@ form {
     align-items: center;
     flex-direction: column;
 }
-h1 {
+h1,
+h2,
+h3 {
     text-align: center;
+    color: brown;
+}
+.profileTitle {
+    border-bottom: 2px solid brown;
 }
 .linkcenter {
     display: flex;

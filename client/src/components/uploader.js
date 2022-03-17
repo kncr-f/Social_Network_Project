@@ -48,11 +48,7 @@ export class Uploader extends Component {
 
                 this.props.updateProfilePic(data.profile_pic);
                 this.props.hideUploader();
-                // this.setState({
-                //     loading: false
-                // }, () => {
-                //     console.log("updated");
-                // });
+
 
             })
             .catch(err => console.log('err in upload', err));

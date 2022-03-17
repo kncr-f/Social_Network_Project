@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Form, Col, Button } from "react-bootstrap";
+import Error from "./components/Error";
+
 
 export default class Reset extends Component {
     constructor() {
@@ -175,9 +177,8 @@ export default class Reset extends Component {
     render() {
         return (
             <div>
-                {this.state.error && <h2 style={{ color: "red" }}>
-                    {this.state.error} something went wrong
-                </h2>}
+
+                {this.state.error && <Error variant="danger"> {this.state.error} something went wrong</Error>}
                 {/* call the method */}
                 {this.determineViewToRender()}
             </div>

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import { Form, Col, Button } from "react-bootstrap";
-
+import Error from "./components/Error";
 
 export default class Login extends Component {
     constructor() {
@@ -49,12 +49,12 @@ export default class Login extends Component {
                 if (data.success) {
                     location.replace("/");
                 } else {
-                    this.setState({ error: "whooopsieeee..." });
+                    this.setState({ error: "whooopsieee something went wrong..." });
                 }
             })
             .catch((err) => {
                 console.log("POST/user/login.json failed", err);
-                this.setState({ error: "Opppssss...." });
+                this.setState({ error: "Opppssss.... something went wrong" });
             });
 
     }
@@ -65,7 +65,9 @@ export default class Login extends Component {
         return (
             <>
                 <h1>Login!</h1>
-                <Form onClick={this.handleLogin}>
+                {this.state.error && <Error variant="danger"> {this.state.error}</Error>}
+
+                <Form onSubmit={this.handleLogin}>
 
                     <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>

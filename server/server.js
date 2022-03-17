@@ -221,11 +221,12 @@ app.post("/user/profile/bio", (req, res) => {
 app.get("/users.json", (req, res) => {
 
     const searchTerm = req.query.search;
-    console.log("searchTerm...", searchTerm);
+    //console.log("searchTerm...", searchTerm);
     if (searchTerm) {
         db.getMatchingUsers(searchTerm)
             .then(({ rows }) => {
                 // console.log("matching users..", rows);
+                // req.session.userId filter logic
                 res.json(rows);
             }).catch((err) => {
                 console.log("err with getting matchingUsers", err);
@@ -262,6 +263,53 @@ app.get("/user_info/:id", (req, res) => {
 
 
         }).catch((err) => console.log("getting otherUser failed", err));
+});
+
+
+app.get("/friendship/:otherUserId", (req, res) => {
+    const { otherUserId } = req.params;
+    const loggedInUserId = req.session.userId;
+
+    db.getFriendRequests(loggedInUserId, otherUserId)
+        .then(({ rows }) => {
+            console.log('rows in/friendship/:id route...', rows[0]);
+            res.json(rows);
+
+        });
+
+});
+
+
+app.post("/friendship-status", (req, res) => {
+    const { friendshipStatu, otherUserId } = req.body;
+    console.log("friendshipStatu", friendshipStatu);
+    if (friendshipStatu == "make_request") {
+        db.makeFriendRequest(req.session.userId, otherUserId)
+            .then(({ rows }) => {
+                console.log('rows in /friendship-status makefriendRequest', rows);
+                res.json({ friendshipStatu: "cancel_Request" });
+            });
+    } else if (friendshipStatu == "cancel_Request") {
+        db.deleteFriendships(req.session.userId, otherUserId).then(({ rows }) => {
+            console.log("rows in /friendship-status cancel_request", rows);
+            res.json({ friendshipStatu: "make_request" });
+        });
+    } else if (friendshipStatu == "accept_Request") {
+        db.acceptFriendRequest(otherUserId, req.session.userId).then(({ rows }) => {
+            console.log("rows in /friendship-status accept_Request", rows);
+            res.json({ friendshipStatu: "unfriend" });
+
+        });
+    } else if (friendshipStatu == "unfriend") {
+        db.deleteFriendships(req.session.userId, otherUserId).then(() => {
+            console.log("rows in /friendship-status unfriend");
+            res.json({ friendshipStatu: "make_request" }).catch((err) => {
+                console.log(" deleting friendship failed ", err);
+            });
+        });
+    }
+
+
 });
 
 

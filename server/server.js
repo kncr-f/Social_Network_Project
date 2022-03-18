@@ -303,9 +303,7 @@ app.post("/friendship-status", (req, res) => {
     } else if (friendshipStatu == "unfriend") {
         db.deleteFriendships(req.session.userId, otherUserId).then(() => {
             console.log("rows in /friendship-status unfriend");
-            res.json({ friendshipStatu: "make_request" }).catch((err) => {
-                console.log(" deleting friendship failed ", err);
-            });
+            res.json({ friendshipStatu: "make_request" });
         });
     }
 

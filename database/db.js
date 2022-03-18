@@ -117,8 +117,8 @@ module.exports.acceptFriendRequest = (sender_id, recipient_id) => {
 
 module.exports.deleteFriendships = (sender_id, recipient_id) => {
     return db.query(`
-    DELETE FROM frienships 
-    WHERE sender_id =$1 AND recipient_id=$2
+    DELETE FROM friendships 
+    WHERE (sender_id =$1 AND recipient_id=$2) 
     `, [sender_id, recipient_id]);
 };
 

@@ -272,9 +272,11 @@ app.get("/friendship/:otherUserId", (req, res) => {
 
     db.getFriendRequests(loggedInUserId, otherUserId)
         .then(({ rows }) => {
-            console.log('rows in/friendship/:id route...', rows[0]);
+            // console.log('rows in/friendship/:id route...', rows[0]);
             res.json(rows);
 
+        }).catch((err) => {
+            console.log('error getting Friend Request', err);
         });
 
 });
@@ -303,11 +305,14 @@ app.post("/friendship-status", (req, res) => {
 
             });
     } else if (friendshipStatu == "accept_Request") {
-        db.acceptFriendRequest(otherUserId, req.session.userId).then(({ rows }) => {
-            console.log("rows in /friendship-status accept_Request", rows);
-            res.json({ friendshipStatu: "unfriend" });
+        db.acceptFriendRequest(otherUserId, req.session.userId)
+            .then(({ rows }) => {
+                console.log("rows in /friendship-status accept_Request", rows);
+                res.json({ friendshipStatu: "unfriend" });
 
-        });
+            }).catch((err) => {
+                console.log("error accept_Request", err);
+            });
     } else if (friendshipStatu == "unfriend") {
         db.deleteFriendships(req.session.userId, otherUserId)
             .then(() => {
@@ -322,6 +327,41 @@ app.post("/friendship-status", (req, res) => {
 
 });
 
+
+app.get("/friends-page.json", (req, res) => {
+    const loggedInUserId = req.session.userId;
+    db.friendsPageInfos(loggedInUserId).then(({ rows }) => {
+        console.log("friends-page rows", rows);
+        res.json(rows);
+    });
+
+
+});
+
+app.post("/friendship-accepted", (req, res) => {
+    const { otherUserId } = req.body;
+
+    console.log('otherUserId', otherUserId);
+    db.acceptFriendRequest(otherUserId, req.session.userId)
+        .then(({ rows }) => {
+            console.log("rows in /friendship-accepted", rows);
+            res.json({ success: true });
+
+        }).catch((err) => {
+            console.log("error accept_Request", err);
+        });
+});
+
+app.post("/friendship-deleted", (req, res) => {
+    const { otherUserId } = req.body;
+    db.deleteFriendships(otherUserId, req.session.userId).then(() => {
+        res.json({ userDeleted: true });
+    }).catch((err) => {
+        console.log("error friendship-deleted", err);
+
+    });
+
+});
 
 app.get("/logout", (req, res) => {
     req.session = null;

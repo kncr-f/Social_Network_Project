@@ -10,6 +10,7 @@ import FindPeople from "./components/FindPeople";
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import OtherProfile from "./components/OtherProfile";
 import Loading from "./components/Loading";
+import Friends from "./components/Friends";
 
 
 
@@ -89,12 +90,17 @@ export class App extends Component {
                                 </Col>
 
                                 <Col className="m-auto linkcenter">
-                                    <Link to="/"> <i className="fa-solid fa-user"></i> Return Profile</Link>
+                                    <Link to="/"> <i className="fa-solid fa-user"></i> My Profile</Link>
+
+                                </Col>
+
+                                <Col className="m-auto ">
+                                    <Link to="/friends-page"> <i className="fa-solid fa-user"></i> My Friends</Link>
 
                                 </Col>
 
                                 <Col className="m-auto rightcenter">
-                                    <Link to="/users"> <i className="fa-solid fa-users"></i> Find More People</Link>
+                                    <Link to="/users"> <i className="fa-solid fa-users"></i> Find People</Link>
 
                                 </Col>
 
@@ -130,6 +136,9 @@ export class App extends Component {
                             <Route path="/user/:otherUserId">
                                 <OtherProfile currentId={this.state.id} />
                             </Route>
+
+                            <Route path="/friends-page" component={Friends} />
+
 
 
                         </BrowserRouter>

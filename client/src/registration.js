@@ -69,7 +69,7 @@ export class Registration extends Component {
     render() {
         return (
             <>
-                <h1>Registration!</h1>
+                <h3>Registration!</h3>
                 {this.state.error && <Error variant="danger"> Please fill all the requiered fields</Error>}
 
                 <Form onSubmit={this.handleSubmit}>

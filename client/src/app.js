@@ -95,7 +95,7 @@ export class App extends Component {
                                 </Col>
 
                                 <Col className="m-auto ">
-                                    <Link to="/friends-page"> <i className="fa-solid fa-user"></i> My Friends</Link>
+                                    <Link to="/friends-page"> <i className="fa-solid fa-users"></i> My Friends</Link>
 
                                 </Col>
 

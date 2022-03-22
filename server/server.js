@@ -7,6 +7,14 @@ const { compare, hash } = require("../bc");
 const cryptoRandomString = require('crypto-random-string');
 const { sendEmail } = require("./ses.js");
 
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000"))
+});
+
+
 //upload process
 const s3 = require("../s3");
 
@@ -373,6 +381,19 @@ app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", (socket) => {
+    console.log('socket', socket.id);
+
+    socket.emit("greeting", {
+        message: "it is just a string form the Server"
+    });
+
+
+    socket.on("disconnect", () => {
+        console.log(`${socket.id} just disconnected`);
+    });
 });

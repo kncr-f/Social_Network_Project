@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
 import Error from "./Error";
 import FriendButton from "./FriendButton";
+import { Row, Col, Image, ListGroup, ListGroupItem } from "react-bootstrap";
+
 
 const OtherProfile = (props) => {
     const [otherProfile, setOtherProfile] = useState({});
@@ -47,11 +49,55 @@ const OtherProfile = (props) => {
 
     return (
         <>
-            <FriendButton otherUserId={otherUserId} />
+
             {err && <Error variant="danger"> The user you search can not be found</Error>}
-            <img src={otherProfile.profile_pic} />
-            <h3>{otherProfile.first} {otherProfile.last}</h3>
-            <p>{otherProfile.bio_text}</p>
+            <Row style={{ margin: "20px 90px", borderTop: "1px solid brown" }}>
+
+
+
+
+                <ListGroup variant="flush" >
+                    <ListGroupItem >
+                        <Row>
+
+                            <Col md={2}>
+                                <Image src={otherProfile.profile_pic} alt={otherProfile.first} fluid rounded></Image>
+
+                            </Col>
+
+                            <Col md={2}>
+                                <h3>{otherProfile.first} {otherProfile.last}</h3>
+
+                            </Col>
+                            <Col md={6}>
+                                Bio:{otherProfile.bio_text}
+
+
+                            </Col>
+                            <Col md={2}>
+                                <FriendButton style={{ margin: "10px" }} otherUserId={otherUserId} />
+
+
+                            </Col>
+
+                        </Row>
+
+
+
+
+                    </ListGroupItem>
+
+                </ListGroup>
+
+
+            </Row>
+            {/* <Row style={{ width: "200px", margin: "20px 90px" }}>
+                <FriendButton style={{ margin: "10px" }} otherUserId={otherUserId} />
+
+            </Row> */}
+            {/* <img src={otherProfile.profile_pic} /> */}
+
+
         </>
 
     );

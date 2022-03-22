@@ -1,9 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { useEffect } from "react";
 import { getFriendList } from "../redux/friends/slice.js";
 import { makeFriend, deleteFriend } from "../redux/friends/slice.js";
+import { Row, Col, ListGroup, Image, Button, ListGroupItem } from "react-bootstrap";
+import Error from "./Error.js";
 
 const Friends = () => {
+    const history = useHistory();
+
 
     const dispatch = useDispatch();
     const currentFriends = useSelector((state) =>
@@ -41,7 +46,7 @@ const Friends = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                otherUserId: id,
+                otherUserId: id
 
             })
         })
@@ -67,7 +72,7 @@ const Friends = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                otherUserId: id,
+                otherUserId: id
 
             })
         }).then(resp => resp.json()).then((data) => {
@@ -79,29 +84,96 @@ const Friends = () => {
         });
     };
 
+    const handleClick = (arg) => {
+        history.push(`/user/${arg}`);
+    };
+
     return (
         <>
+            <Row>
 
-            <h1>Friends</h1>
+                <h2>Current Friends</h2>
+                {currentFriends.length == 0 ? <Error  >You do not have any friends yet</Error> :
 
-            {currentFriends.map((item, index) => (
-                <div key={index}>
-                    <p>{item.first}</p>
-                    <button onClick={() => handleDelete(item.id)}>Unfriend</button>
-                </div>
+                    <ListGroup variant="flush">
+                        {currentFriends.map((item, index) => (
+                            <ListGroupItem className="col-sm-8 mx-auto h-60 d-inline-block" key={index}>
 
-            )
+                                <Row onClick={() => handleClick(item.id)}>
+                                    <Col md={2}>
+                                        <Image src={item.profile_pic} alt={item.first} fluid rounded></Image>
+
+                                    </Col>
+
+                                    <Col md={2}>
+                                        <h4>{item.first} {item.last}</h4>
+                                    </Col>
+                                    <Col md={6}>
+                                        {item.bio_text}
+                                    </Col>
+                                    <Col md={2}>
+                                        <Button onClick={() => handleDelete(item.id)}>Unfriend</Button>
+
+                                    </Col>
+
+                                </Row>
+
+                            </ListGroupItem>
+
+                        )
+
+                        )}
+                    </ListGroup>
+
+                }
 
 
-            )}
-            <h1>wannabeFriend</h1>
-            {wannabeFriend.map((item) => (
-                <div key={item.id}>
-                    <p>{item.first}</p>
+            </Row>
 
-                    <button onClick={() => handleAccept(item.id)}>Accept</button>
-                </div>
-            ))}
+
+            <Row>
+
+                <h2>Friend-Requests</h2>
+                {wannabeFriend.length == 0 ? <Error>You have no friends requests</Error> :
+                    <ListGroup variant="flush">
+
+                        {wannabeFriend.map((item, index) => (
+                            <ListGroupItem className="col-sm-8 mx-auto h-60 d-inline-block" key={index}>
+                                <Row>
+                                    <Col md={2}>
+                                        <Image fluid src={item.profile_pic} alt={item.first} rounded />
+
+                                    </Col>
+
+                                    <Col md={2}>
+                                        <h4>{item.first} {item.last}</h4>
+                                    </Col>
+                                    <Col md={6}>
+                                        {item.bio_text}
+                                    </Col>
+                                    <Col md={2}>
+                                        <Button onClick={() => handleAccept(item.id)}>Accept</Button>
+
+                                    </Col>
+
+
+                                    {/* <button onClick={() => handleAccept(item.id)}>Accept</button> */}
+
+                                </Row>
+
+                            </ListGroupItem>
+                        ))}
+
+
+
+                    </ListGroup>
+
+                }
+
+            </Row>
+
+
+
         </>
 
     );

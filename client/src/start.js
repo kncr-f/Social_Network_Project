@@ -6,6 +6,12 @@ import * as immutableState from "redux-immutable-state-invariant";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import reducer from "./redux/reducers";
+import { io } from "socket.io-client";
+
+const socket = io.connect();
+socket.on("greeting", (data) => {
+    console.log("data for socket", data);
+});
 
 const store = createStore(
     reducer,

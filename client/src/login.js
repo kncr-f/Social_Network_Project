@@ -64,7 +64,7 @@ export default class Login extends Component {
 
         return (
             <>
-                <h1>Login!</h1>
+                <h3>Login!</h3>
                 {this.state.error && <Error variant="danger"> {this.state.error}</Error>}
 
                 <Form onSubmit={this.handleLogin}>

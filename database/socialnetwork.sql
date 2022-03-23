@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS reset_codes;
 DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS chat_messages;
 
 CREATE TABLE users (
     id              SERIAL PRIMARY KEY,
@@ -29,3 +30,11 @@ CREATE TABLE users (
   );
 
   CREATE UNIQUE INDEX ON friendships (least(sender_id, recipient_id), greatest(sender_id,recipient_id));
+
+  CREATE TABLE chat_messages(
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    message_text VARCHAR,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+  );

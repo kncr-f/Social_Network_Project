@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import OtherProfile from "./components/OtherProfile";
 import Loading from "./components/Loading";
 import Friends from "./components/Friends";
+import Chats from "./components/Chats";
 
 
 
@@ -138,6 +139,9 @@ export class App extends Component {
                             </Route>
 
                             <Route path="/friends-page" component={Friends} />
+                            <Route path="/chat">
+                                <Chats />
+                            </Route>
 
 
 

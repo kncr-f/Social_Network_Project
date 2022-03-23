@@ -6,18 +6,15 @@ import * as immutableState from "redux-immutable-state-invariant";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux";
 import reducer from "./redux/reducers";
-import { io } from "socket.io-client";
+import { init } from "./socket";
 
-const socket = io.connect();
-socket.on("greeting", (data) => {
-    console.log("data for socket", data);
-});
 
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(immutableState.default()))
 );
 
+init(store);
 
 fetch("/user/id.json")
     .then((resp) => resp.json())

@@ -45,14 +45,20 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 
-//cookieSession
+//cookieSession 
 const cookieSession = require('cookie-session');
 
-app.use(cookieSession({
+const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
     maxAge: 1000 * 60 * 60 * 24 * 14,
     sameSite: true
-}));
+});
+
+// creating a cookieSessionMiddleware in order to use socket.io
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 
 //express.json middleware
@@ -385,15 +391,42 @@ server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 
-io.on("connection", (socket) => {
-    console.log('socket', socket.id);
 
-    socket.emit("greeting", {
-        message: "it is just a string form the Server"
+
+io.on('connection', async function (socket) {
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    const userId = socket.request.session.userId;
+
+    const { rows } = await db.getLatestMessages();
+    socket.emit(
+        'chatMessages', rows
+    );
+
+    socket.on('chatMessageFromClient', function (msg) {
+        console.log('msg', msg);
+        db.saveMessage(userId, msg.text).then(function () {
+            return db.getUserById(userId);
+        }).then(({ rows }) => {
+            io.emit(
+                'chatMessageFromServer',
+                /* construct chat message object */
+                {
+                    first: rows[0].first,
+                    last: rows[0].last,
+                    profile_pic: rows[0].profile_pic,
+                    message_text: msg.text
+
+                },
+
+                console.log("chatMessageFromServer rows", rows)
+
+            );
+        });
     });
 
-
-    socket.on("disconnect", () => {
-        console.log(`${socket.id} just disconnected`);
-    });
+    /* ... */
 });
+

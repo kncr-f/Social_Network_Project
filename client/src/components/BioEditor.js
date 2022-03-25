@@ -79,14 +79,16 @@ export default class BioEditor extends React.Component {
                             <Form.Control
                                 as="textarea"
                                 placeholder='Add your bio here'
-                                style={{ height: "100px" }}
+                                style={{ height: "150px" }}
                                 name="bio_text"
                                 type="text"
                                 onChange={this.handleChange}
                                 defaultValue={this.props.bio}
                             >
                             </Form.Control>
-                            <Button type='submit' className="mb-4" variant="primary">
+
+
+                            <Button sm="3" type='submit' className="mb-4 mt-2" variant="primary">
                                 Save
                             </Button>
                         </Form>
@@ -96,8 +98,8 @@ export default class BioEditor extends React.Component {
                             <Row>
                                 {this.props.bio}
                             </Row>
-                            <Row>
-                                <Button as={Col} sm="3" onClick={() => this.handleClick()} className="mb-4" variant="primary"> Edit </Button >
+                            <Row className="d-flex justify-content-center">
+                                <Button as={Col} sm="3" onClick={() => this.handleClick()} className="mb-4 mt-2" variant="primary"> Edit </Button >
 
                             </Row>
 
@@ -109,8 +111,8 @@ export default class BioEditor extends React.Component {
                     {!this.state.editMode && !this.props.bio && (
 
                         <>
-                            <Row>
-                                <Button as={Col} sm="3" onClick={() => this.handleClick()} className="mb-4" variant="primary"> Add Bio </Button >
+                            <Row as={Col} className="d-flex justify-content-center">
+                                <Button as={Col} sm="5" onClick={() => this.handleClick()} className="mb-2" variant="primary"> Add Bio </Button >
 
                             </Row>
                         </>

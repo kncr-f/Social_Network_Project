@@ -42,4 +42,34 @@ exports.upload = (req, res, next) => {
             return res.sendStatus(500);
         }
     );
+
 };
+
+//Version 1 promisify s3.delete function
+
+// exports.delete = (arg) => {
+//     console.log('arg from s3.js......', arg);
+//     var params = {
+//         Bucket: "spicedling",
+//         Key: arg
+//     };
+//     const promise = s3.deleteObject(params).promise();
+
+//     return promise;
+
+// };
+
+//Version 2
+exports.delete = (arg) => {
+    var params = {
+        Bucket: "spicedling",
+        Key: arg
+    };
+    const aaa = s3.deleteObject(params, function (err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else console.log(data);           // successful response
+    });
+
+    return aaa;
+};
+

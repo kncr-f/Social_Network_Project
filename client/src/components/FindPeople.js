@@ -6,6 +6,7 @@ import { Row, Col, ListGroup, InputGroup, FormControl, Image, ListGroupItem } fr
 
 const FindPeople = () => {
 
+    let url = "https://i.pinimg.com/474x/2f/ec/a4/2feca4c9330929232091f910dbff7f87.jpg";
     const [searchTerm, setSearchTerm] = useState("");
     const [users, setUsers] = useState([]);
     const history = useHistory();
@@ -33,7 +34,7 @@ const FindPeople = () => {
     return (
         <>
             <h2>Find People</h2>
-            <InputGroup style={{ margin: "10px 0" }} size="lg">
+            <InputGroup as={Col} className="d-flex justify-content-center w-50">
                 <FormControl placeholder="Find Other People" onChange={(e) => setSearchTerm(e.target.value)} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
             </InputGroup>
             <ListGroup variant="flush" >
@@ -41,7 +42,7 @@ const FindPeople = () => {
                     <ListGroupItem key={user.id}>
                         <Row onClick={() => handleClick(user.id)} >
                             <Col md={2}>
-                                <Image src={user.profile_pic} alt={user.first} fluid rounded />
+                                <Image src={user.profile_pic ? user.profile_pic : url} alt={user.first} fluid rounded />
 
                             </Col>
                             <Col md={2}>

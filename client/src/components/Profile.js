@@ -1,45 +1,95 @@
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { ProfilePic } from "./profile_pic";
 import BioEditor from "./BioEditor";
+import { useState } from "react";
+import DeleteAccount from "./DeleteAccount";
+
+
 
 
 const Profile = (props) => {
+
+
+    const [deleteModule, setDeleteModule] = useState(false);
+
     const style = {
         width: "300px",
         height: "300px",
         cursor: "pointer"
     };
     //console.log("props in profile", props);
+
+
+    // const handleDelete = () => {
+    //     fetch("/delete-account", {
+    //         method: "POST",
+
+    //     })
+    //         .then(resp => resp.json())
+    //         .then((data) => {
+    //             console.log('/delete-account', data);
+
+    //         })
+    //         .catch((err) => {
+    //             console.log("/delete-account failed", err);
+
+    //         });
+    // };
+
+    const hideDeleteModule = () => {
+        setDeleteModule(false);
+
+    };
+
+
+
     return (
         <>
             <Container >
+
                 <h1 className="profileTitle"> Profile Page</h1>
-                <Row>
-                    <Col>
-                        <ProfilePic
-                            style={style}
-                            url={props.url}
-                            first={props.first}
-                            last={props.last}
-                            showUploader={props.showUploader}
+                {deleteModule ?
+                    <DeleteAccount hideDeleteModule={hideDeleteModule} />
+                    : (
+                        <>
+                            <Row>
+                                <Col>
+                                    <ProfilePic
+                                        style={style}
+                                        url={props.url}
+                                        first={props.first}
+                                        last={props.last}
+                                        showUploader={props.showUploader}
 
-                        />
-                    </Col>
+                                    />
+                                </Col>
 
-                    <Col>
-                        <Row>
-                            <h3>{props.first} {props.last}</h3>
-                        </Row>
+                                <Col>
+                                    <Row>
+                                        <h3>{props.first} {props.last}</h3>
+                                    </Row>
 
-                        <Row>
-                            <BioEditor
-                                bio={props.bio}
-                                setBio={props.setBio}
-                            />
-                        </Row>
-                    </Col>
-                </Row>
+                                    <Row>
+                                        <BioEditor
+                                            bio={props.bio}
+                                            setBio={props.setBio}
+                                        />
+                                    </Row>
+                                </Col>
+                            </Row>
+
+                            <Row as={Col} sm="3" className="d-flex justify-content-center">
+                                {/* <Button onClick={() => handleDelete()} > Delete Your Account </Button> */}
+                                <Button onClick={() => setDeleteModule(true)} > Delete Your Account </Button>
+                            </Row>
+
+                        </>
+
+                    )
+
+                }
+
 
 
             </Container>

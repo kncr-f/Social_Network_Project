@@ -89,7 +89,7 @@ export class Registration extends Component {
 
 
                     <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label>Email Address</Form.Label>
                         <Form.Control name="email" type="email" placeholder="Enter Your Email" onChange={this.handleChange} />
                     </Form.Group>
 

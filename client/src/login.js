@@ -70,16 +70,19 @@ export default class Login extends Component {
                 <Form onSubmit={this.handleLogin}>
 
                     <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label>Email Address</Form.Label>
                         <Form.Control name="email" type="email" placeholder="Enter email" onChange={this.handleChange} />
-                        <Form.Text className="text-muted">
-                            We  will never share your email with anyone else.
-                        </Form.Text>
                     </Form.Group>
 
                     <Form.Group as={Col} sm="5" className="mb-3" controlId="formBasicPassword">
                         <Form.Label >Password</Form.Label>
                         <Form.Control name="password" type="password" placeholder="Password" onChange={this.handleChange} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Text className="text-muted">
+                            We will never share your information with anyone else.
+                        </Form.Text>
                     </Form.Group>
 
                     <Button className="mb-4" variant="primary" type="submit" >

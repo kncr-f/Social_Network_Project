@@ -76,7 +76,7 @@ module.exports.getRecentUsers = () => {
     return db.query(`SELECT * 
                     FROM users 
                     ORDER BY created_at DESC
-                    LIMIT 4`);
+                    LIMIT 6`);
 };
 
 module.exports.getMatchingUsers = (val) => {
@@ -157,3 +157,31 @@ module.exports.getLatestMessages = () => {
 };
 
 
+module.exports.deleteUsers = (id) => {
+    return db.query(`
+    DELETE FROM users
+    WHERE id=$1
+    `, [id]);
+};
+
+module.exports.deleteChatMessages = (user_id) => {
+    return db.query(`
+    DELETE FROM chat_messages
+    WHERE id = $1
+    `, [user_id]);
+};
+
+module.exports.deleteUsersFriends = (id) => {
+    return db.query(`
+    DELETE FROM friendships
+    WHERE sender_id =$1 OR recipient_id = $1
+    `, [id]);
+};
+
+module.exports.getImage = (id) => {
+    return db.query(` 
+    SELECT profile_pic FROM users
+    WHERE id=$1
+
+    `, [id]);
+};

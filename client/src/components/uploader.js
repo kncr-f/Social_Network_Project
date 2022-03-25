@@ -80,7 +80,7 @@ export class Uploader extends Component {
                                     <Button variant="primary" type="submit" >
                                         Upload
                                     </Button>
-                                    {/* <Button variant="secondary" onClick={this.props.hideUploader}>Cancel</Button> */}
+
                                 </Form>
                             </Modal.Footer>
                         </Modal.Dialog>

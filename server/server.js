@@ -17,6 +17,7 @@ const io = require('socket.io')(server, {
 
 //upload process
 const s3 = require("../s3");
+console.log(s3);
 
 const multer = require("multer");
 const uidSafe = require("uid-safe");
@@ -195,9 +196,10 @@ app.post("/verify", (req, res) => {
 
 
 app.get("/user.json", (req, res) => {
+    console.log('req.session.userId :>> ', req.session.userId);
     db.getUserById(req.session.userId)
         .then(({ rows }) => {
-            //console.log('rows in /user.json route...', rows[0]);
+            console.log('rows in /user.json route...', rows[0]);
             res.json(rows[0]);
         }).catch((err) => console.log("getting looged user failed", err));
 });
@@ -249,8 +251,9 @@ app.get("/users.json", (req, res) => {
     } else {
         db.getRecentUsers()
             .then(({ rows }) => {
-                // console.log("users row.....", rows);
-                res.json(rows);
+                console.log("users row.....", rows);
+                const exceptUser = rows.filter((item) => item.id !== req.session.userId);
+                res.json(exceptUser);
             }).catch((err) => {
                 console.log("err with getting users", err);
             });
@@ -377,6 +380,63 @@ app.post("/friendship-deleted", (req, res) => {
 
 });
 
+app.post("/delete-account", (req, res) => {
+
+    db.getImage(req.session.userId)
+        .then(({ rows }) => {
+            console.log('rows from server............', rows[0]);
+
+            db.deleteChatMessages(req.session.userId)
+                .then(() => {
+
+                    db.deleteFriendships(req.session.userId)
+                        .then(() => {
+                            db.deleteUsers(req.session.userId)
+                                .then(() => {
+
+                                    //Version 1 correspond s3.delete function here with then() because it is promisified 
+
+                                    // s3.delete(keyOfUrl).then(() => {
+                                    //     console.log("s3 delete worksss...");
+                                    //     req.session = null;
+                                    //     res.redirect("/");
+
+                                    // }).catch((err) => {
+                                    //     console.log('err catch inside delete', err);
+                                    // });
+
+
+                                    // Version 2
+                                    if (rows[0].profile_pic) {
+                                        const url = rows[0].profile_pic;
+                                        const keyOfUrl = url.replace("https://s3.amazonaws.com/spicedling/", "");
+
+                                        s3.delete(keyOfUrl);
+                                        console.log("s3 images deleted");
+                                        req.session = null;
+                                        res.json({ success: true });
+
+
+                                    } else {
+                                        req.session = null;
+                                        res.json({ success: true });
+
+                                    }
+
+                                });
+                        });
+                })
+                .catch((err) => {
+                    console.log('deleteaccount failed..', err);
+                    res.json({ succes: false });
+                });
+
+        });
+
+
+
+});
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
@@ -392,7 +452,7 @@ server.listen(process.env.PORT || 3001, function () {
 });
 
 
-
+//group chat with socket.io
 io.on('connection', async function (socket) {
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
@@ -406,7 +466,7 @@ io.on('connection', async function (socket) {
     );
 
     socket.on('chatMessageFromClient', function (msg) {
-        console.log('msg', msg);
+        //console.log('msg', msg);
         db.saveMessage(userId, msg.text).then(function () {
             return db.getUserById(userId);
         }).then(({ rows }) => {
@@ -427,6 +487,6 @@ io.on('connection', async function (socket) {
         });
     });
 
-    /* ... */
+
 });
 

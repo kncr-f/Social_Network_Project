@@ -3,7 +3,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 
 
 
-const Header = () => {
+const Header = (props) => {
 
     return (
         <header>
@@ -15,10 +15,11 @@ const Header = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
 
                         <Nav className="ml-auto">
-                            <Nav.Link href="/login"> <i className="fas fa-arrow-right-to-bracket"> Sing In</i></Nav.Link>
-                            <Nav.Link href="/logout"> <i className="fas fa-house" />Home</Nav.Link>
-                            {/* {!isUser ? <Nav.Link href="/login"> <i className="fas fa-arrow-right-to-bracket"> Sing In</i></Nav.Link> :
-                                <Nav.Link href="/"> <i className="fas fa-house" />Home</Nav.Link>} */}
+                            {/* <Nav.Link href="/login"> <i className="fas fa-arrow-right-to-bracket"> Sign In</i></Nav.Link> */}
+                            {!props.userId && <Nav.Link href="/login"> <i className="fas fa-arrow-right-to-bracket"> Sing In</i></Nav.Link>}
+                            {props.userId && <Nav.Link href="/logout"> <i className="fa-solid fa-arrow-right-from-bracket">Sign Out</i></Nav.Link>}
+
+
 
                         </Nav>
                     </Navbar.Collapse>

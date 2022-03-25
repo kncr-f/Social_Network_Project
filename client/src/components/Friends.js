@@ -8,6 +8,8 @@ import Error from "./Error.js";
 
 const Friends = () => {
     const history = useHistory();
+    let url = "https://i.pinimg.com/474x/2f/ec/a4/2feca4c9330929232091f910dbff7f87.jpg";
+
 
 
     const dispatch = useDispatch();
@@ -101,7 +103,7 @@ const Friends = () => {
 
                                 <Row onClick={() => handleClick(item.id)}>
                                     <Col md={2}>
-                                        <Image src={item.profile_pic} alt={item.first} fluid rounded></Image>
+                                        <Image src={item.profile_pic ? item.profile_pic : url} alt={item.first} fluid rounded></Image>
 
                                     </Col>
 
@@ -141,7 +143,7 @@ const Friends = () => {
                             <ListGroupItem className="col-sm-8 mx-auto h-60 d-inline-block" key={index}>
                                 <Row>
                                     <Col md={2}>
-                                        <Image fluid src={item.profile_pic} alt={item.first} rounded />
+                                        <Image fluid src={item.profile_pic ? item.profile_pic : url} alt={item.first} rounded />
 
                                     </Col>
 

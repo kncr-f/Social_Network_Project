@@ -81,13 +81,14 @@ export class App extends Component {
         }
         return (
             <>
-                <Header />
+                <Header userId={this.state.id} />
                 <main>
                     <Container>
                         <BrowserRouter>
                             <Row>
                                 <Col>
-                                    <Logo />
+                                    <Link to="/"> <Logo /></Link>
+
                                 </Col>
 
                                 <Col className="m-auto linkcenter">

@@ -48,7 +48,7 @@ const Profile = (props) => {
         <>
             <Container >
 
-                <h1 className="profileTitle"> Profile Page</h1>
+                <h2 > Profile Page</h2>
                 {deleteModule ?
                     <DeleteAccount hideDeleteModule={hideDeleteModule} />
                     : (
@@ -81,7 +81,7 @@ const Profile = (props) => {
 
                             <Row as={Col} sm="3" className="d-flex justify-content-center">
                                 {/* <Button onClick={() => handleDelete()} > Delete Your Account </Button> */}
-                                <Button onClick={() => setDeleteModule(true)} > Delete Your Account </Button>
+                                <Button id="deleteAccount" className="opacity-25" variant="dark " onClick={() => setDeleteModule(true)} > Delete Account </Button>
                             </Row>
 
                         </>

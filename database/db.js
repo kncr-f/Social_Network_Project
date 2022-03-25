@@ -185,3 +185,18 @@ module.exports.getImage = (id) => {
 
     `, [id]);
 };
+
+module.exports.getMutualFrieds = (loggedInUserId, otherUserId) => {
+    return db.query(`
+    SELECT users.id, users.first, users.last, users.profile_pic, users.bio_text FROM users
+    JOIN friendships 
+    ON (friendships.accepted = true AND sender_id = users.id AND recipient_id = $1)
+    OR (friendships.accepted = true AND sender_id = $1 AND recipient_id = users.id)
+    WHERE users.id IN (
+            SELECT users.id 
+        FROM users
+        JOIN friendships
+        ON (friendships.accepted = true AND sender_id = users.id AND recipient_id = $2)
+        OR (friendships.accepted = true AND sender_id = $2 AND recipient_id = users.id)
+        )`, [loggedInUserId, otherUserId]);
+};

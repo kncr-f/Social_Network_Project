@@ -437,6 +437,32 @@ app.post("/delete-account", (req, res) => {
 
 });
 
+
+app.get("/mutual-friends/:otherUserId", (req, res) => {
+
+    const { otherUserId } = req.params;
+    console.log("otheruserId....in server", otherUserId);
+    const loggedInUserId = req.session.userId;
+    db.getMutualFrieds(loggedInUserId, otherUserId)
+        .then(({ rows }) => {
+            console.log('rows /mutual-friends/:otherUserId...', rows.length);
+            if (rows.length > 0) {
+                res.json(rows[0]);
+
+            } else {
+                res.json({ success: false });
+            }
+
+        }).catch((err) => {
+            console.log('error getting Friend Request', err);
+        });
+
+
+
+});
+
+
+
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");

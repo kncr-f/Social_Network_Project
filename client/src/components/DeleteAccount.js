@@ -39,7 +39,7 @@ const DeleteAccount = (props) => {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button onClick={() => handleDelete()} > Delete Your Account </Button>
+                    <Button variant="danger" onClick={() => handleDelete()} > Delete Your Account </Button>
 
                 </Modal.Footer>
             </Modal.Dialog>

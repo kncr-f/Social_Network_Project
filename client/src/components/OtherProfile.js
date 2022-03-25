@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router";
 import Error from "./Error";
 import FriendButton from "./FriendButton";
+import MutualFriends from "./MutualFriends";
 import { Row, Col, Image, ListGroup, ListGroupItem } from "react-bootstrap";
 
 
@@ -51,7 +52,7 @@ const OtherProfile = (props) => {
         <>
 
             {err && <Error variant="danger"> The user you search can not be found</Error>}
-            <Row style={{ margin: "20px 90px", borderTop: "1px solid brown" }}>
+            <Row >
 
 
 
@@ -89,14 +90,10 @@ const OtherProfile = (props) => {
 
                 </ListGroup>
 
+                <MutualFriends otherUserId={otherUserId} />
+
 
             </Row>
-            {/* <Row style={{ width: "200px", margin: "20px 90px" }}>
-                <FriendButton style={{ margin: "10px" }} otherUserId={otherUserId} />
-
-            </Row> */}
-            {/* <img src={otherProfile.profile_pic} /> */}
-
 
         </>
 

@@ -10,7 +10,7 @@ const Header = (props) => {
             <Navbar bg="dark" variant="light" expand="lg" collapseOnSelect>
                 <Container>
 
-                    <Navbar.Brand href="/">Lets Socialize</Navbar.Brand>
+                    <Navbar.Brand href="/"><i className="fa-solid fa-comments"> Blick R</i></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
 

@@ -73,11 +73,12 @@ export default class BioEditor extends React.Component {
     render() {
         return (
             <>
-                <Container>
+                <Container >
                     {this.state.editMode && (
                         <Form onSubmit={(e) => this.handleSubmit(e)}>
                             <Form.Control
                                 as="textarea"
+
                                 placeholder='Add your bio here'
                                 style={{ height: "150px" }}
                                 name="bio_text"

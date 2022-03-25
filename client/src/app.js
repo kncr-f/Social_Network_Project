@@ -85,30 +85,37 @@ export class App extends Component {
                 <main>
                     <Container>
                         <BrowserRouter>
-                            <Row>
+                            <Row id="header" className="d-flex ">
                                 <Col>
                                     <Link to="/"> <Logo /></Link>
 
                                 </Col>
 
-                                <Col className="m-auto linkcenter">
-                                    <Link to="/"> <i className="fa-solid fa-user"></i> My Profile</Link>
+                                <Col className="m-auto ">
+                                    <Link to="/"> <i className="fa-solid fa-user"> My Profile</i> </Link>
 
                                 </Col>
 
                                 <Col className="m-auto ">
-                                    <Link to="/friends-page"> <i className="fa-solid fa-users"></i> My Friends</Link>
+                                    <Link to="/friends-page"> <i className="fa-solid fa-users"> My Friends</i></Link>
 
                                 </Col>
 
-                                <Col className="m-auto rightcenter">
-                                    <Link to="/users"> <i className="fa-solid fa-users"></i> Find People</Link>
+                                <Col className="m-auto ">
+                                    <Link to="/users"> <i className="fa-solid fa-users"> Find People</i> </Link>
+
+                                </Col>
+
+                                <Col className="m-auto ">
+
+                                    <Link to="chat"> <i className="fa-solid fa-comment"> Chats</i>  </Link>
 
                                 </Col>
 
                                 <Col>
 
                                     <ProfilePic
+                                        className="m-auto"
                                         style={{ width: "100px", height: "100px", cursor: "pointer" }}
                                         url={this.state.profile_pic}
                                         first={this.state.first}

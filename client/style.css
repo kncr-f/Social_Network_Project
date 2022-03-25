@@ -19,6 +19,27 @@ header .navbar-nav {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#header {
+    margin-bottom: 10px;
+    border-bottom: 2px solid brown;
+}
+
+#header .m-auto {
+    text-align: center;
+}
+
+#header a {
+    text-decoration: none;
+}
+
+#deleteAccount {
+    width: 180px;
+}
+
+#deleteAccount:hover {
+    color: red;
+}
 form {
     display: flex;
     justify-content: center;
@@ -40,9 +61,7 @@ h2 {
 h3 {
     padding-bottom: 10px;
 }
-.profileTitle {
-    border-bottom: 2px solid brown;
-}
+
 .linkcenter {
     display: flex;
     justify-content: center;

@@ -85,49 +85,52 @@ export class App extends Component {
                 <main>
                     <Container>
                         <BrowserRouter>
-                            <Row id="header" className="d-flex ">
-                                <Col>
-                                    <Link to="/"> <Logo /></Link>
+                            <Route path="/">
+                                <Row id="header" className="d-flex ">
+                                    <Col className="m-auto ">
+                                        <Link to="/"> <Logo /></Link>
 
-                                </Col>
+                                    </Col>
 
-                                <Col className="m-auto ">
-                                    <Link to="/"> <i className="fa-solid fa-user"> My Profile</i> </Link>
+                                    <Col className="m-auto ">
+                                        <Link to="/"> <i className="fa-solid fa-user"> My Profile</i> </Link>
 
-                                </Col>
+                                    </Col>
 
-                                <Col className="m-auto ">
-                                    <Link to="/friends-page"> <i className="fa-solid fa-users"> My Friends</i></Link>
+                                    <Col className="m-auto ">
+                                        <Link to="/friends-page"> <i className="fa-solid fa-users"> My Friends</i></Link>
 
-                                </Col>
+                                    </Col>
 
-                                <Col className="m-auto ">
-                                    <Link to="/users"> <i className="fa-solid fa-users"> Find People</i> </Link>
+                                    <Col className="m-auto ">
+                                        <Link className="m-auto" to="/users"> <i className="fa-solid fa-users"> Find People</i> </Link>
 
-                                </Col>
+                                    </Col>
 
-                                <Col className="m-auto ">
+                                    <Col className="m-auto ">
 
-                                    <Link to="chat"> <i className="fa-solid fa-comment"> Chats</i>  </Link>
+                                        <Link to="/chat"> <i className="fa-solid fa-comment"> Chats</i>  </Link>
 
-                                </Col>
+                                    </Col>
 
-                                <Col>
+                                    <Col>
 
-                                    <ProfilePic
-                                        className="m-auto"
-                                        style={{ width: "100px", height: "100px", cursor: "pointer" }}
-                                        url={this.state.profile_pic}
-                                        first={this.state.first}
-                                        last={this.state.last}
-                                        showUploader={this.toggleUploader}
+                                        <ProfilePic
+                                            className="m-auto"
+                                            style={{ width: "100px", height: "100px", cursor: "pointer" }}
+                                            url={this.state.profile_pic}
+                                            first={this.state.first}
+                                            last={this.state.last}
+                                            showUploader={this.toggleUploader}
 
-                                    />
-                                </Col>
+                                        />
+                                    </Col>
 
-                            </Row>
+                                </Row>
+                            </Route>
 
                             <Route exact path="/">
+
                                 <Profile
                                     id={this.state.id}
                                     url={this.state.profile_pic}

@@ -80,7 +80,7 @@ export default class BioEditor extends React.Component {
                                 as="textarea"
 
                                 placeholder='Add your bio here'
-                                style={{ height: "150px" }}
+                                style={{ height: "200px" }}
                                 name="bio_text"
                                 type="text"
                                 onChange={this.handleChange}

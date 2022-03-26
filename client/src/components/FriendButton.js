@@ -15,20 +15,20 @@ const FriendButton = (props) => {
                     console.log('data... in friendsButton ', data);
                     if (!data.length) {
                         // make a request
-                        setFriendshipStatu("make_request");
+                        setFriendshipStatu("Make Request");
                     } else {
                         if (data[0].accepted === true) {
-                            setFriendshipStatu("unfriend");
+                            setFriendshipStatu("Unfriend");
 
                         } else {
                             if (data[0].sender_id != props.otherUserId) {
                                 //cancel request
-                                setFriendshipStatu("cancel_Request");
+                                setFriendshipStatu("Cancel Request");
 
 
                             } else {
                                 //accept request
-                                setFriendshipStatu("accept_Request");
+                                setFriendshipStatu("Accept Request");
 
                             }
                         }

@@ -302,39 +302,39 @@ app.get("/friendship/:otherUserId", (req, res) => {
 app.post("/friendship-status", (req, res) => {
     const { friendshipStatu, otherUserId } = req.body;
 
-    if (friendshipStatu == "make_request") {
+    if (friendshipStatu == "Make Request") {
         db.makeFriendRequest(req.session.userId, otherUserId)
             .then(({ rows }) => {
                 console.log('rows in /friendship-status makefriendRequest', rows);
-                res.json({ friendshipStatu: "cancel_Request" });
+                res.json({ friendshipStatu: "Cancel Request" });
             }).catch((err) => {
                 console.log("error making friendRequest", err);
 
             });
-    } else if (friendshipStatu == "cancel_Request") {
+    } else if (friendshipStatu == "Cancel Request") {
         db.deleteFriendships(req.session.userId, otherUserId)
             .then(({ rows }) => {
                 console.log("rows in /friendship-status cancel_request", rows);
-                res.json({ friendshipStatu: "make_request" });
+                res.json({ friendshipStatu: "Make Request" });
             })
             .catch((err) => {
                 console.log("error canceling friendRequest", err);
 
             });
-    } else if (friendshipStatu == "accept_Request") {
+    } else if (friendshipStatu == "Accept Request") {
         db.acceptFriendRequest(otherUserId, req.session.userId)
             .then(({ rows }) => {
                 console.log("rows in /friendship-status accept_Request", rows);
-                res.json({ friendshipStatu: "unfriend" });
+                res.json({ friendshipStatu: "Unfriend" });
 
             }).catch((err) => {
                 console.log("error accept_Request", err);
             });
-    } else if (friendshipStatu == "unfriend") {
+    } else if (friendshipStatu == "Unfriend") {
         db.deleteFriendships(req.session.userId, otherUserId)
             .then(() => {
                 console.log("rows in /friendship-status unfriend");
-                res.json({ friendshipStatu: "make_request" });
+                res.json({ friendshipStatu: "Make Request" });
             }).catch((err) => {
                 console.log("error unfriend Request", err);
 
@@ -503,7 +503,8 @@ io.on('connection', async function (socket) {
                     first: rows[0].first,
                     last: rows[0].last,
                     profile_pic: rows[0].profile_pic,
-                    message_text: msg.text
+                    message_text: msg.text,
+                    created_at: msg.created_at
 
                 },
 

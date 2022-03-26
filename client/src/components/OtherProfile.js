@@ -20,11 +20,11 @@ const OtherProfile = (props) => {
             fetch(`/user_info/${otherUserId}`)
                 .then(resp => resp.json())
                 .then((data) => {
-                    // console.log('data... in app for otherUserId', data);
+
                     if (data.success === false) {
                         console.log("user could not be found");
                         setErr(true);
-                        // history.push("/");
+
                     } else {
                         if (props.currentId == otherUserId) {
 
@@ -51,23 +51,19 @@ const OtherProfile = (props) => {
     return (
         <>
 
-            {err && <Error variant="danger"> The user you search can not be found</Error>}
+            {err && <Error id="mutual_error" variant="danger"> The user you search can not be found</Error>}
             <Row >
-
-
-
-
                 <ListGroup variant="flush" >
                     <ListGroupItem >
-                        <Row>
+                        <Row style={{ height: "18vh", alignItems: "center" }}>
 
                             <Col md={2}>
-                                <Image src={otherProfile.profile_pic} alt={otherProfile.first} fluid rounded></Image>
+                                <Image style={{ height: "18vh" }} src={otherProfile.profile_pic} alt={otherProfile.first} fluid rounded></Image>
 
                             </Col>
 
                             <Col md={2}>
-                                <h3>{otherProfile.first} {otherProfile.last}</h3>
+                                <h4>{otherProfile.first} {otherProfile.last}</h4>
 
                             </Col>
                             <Col md={6}>
@@ -78,22 +74,21 @@ const OtherProfile = (props) => {
                             <Col md={2}>
                                 <FriendButton style={{ margin: "10px" }} otherUserId={otherUserId} />
 
-
                             </Col>
 
                         </Row>
 
-
-
-
                     </ListGroupItem>
 
+
+
+
+                    <MutualFriends otherUserId={otherUserId} />
+
+
                 </ListGroup>
-
-                <MutualFriends otherUserId={otherUserId} />
-
-
             </Row>
+
 
         </>
 

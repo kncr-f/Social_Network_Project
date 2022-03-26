@@ -35,6 +35,13 @@ header .navbar-nav {
 
 #deleteAccount {
     width: 180px;
+    color: lightyellow;
+}
+
+.fade {
+    width: 400px;
+    margin: 10px auto;
+    align-items: center;
 }
 
 #deleteAccount:hover {
@@ -71,4 +78,41 @@ h3 {
 .alert {
     color: brown;
     text-align: center;
+}
+
+#findPeople_Item:hover {
+    cursor: pointer;
+    background-color: #c2ece0;
+    opacity: 0.8;
+    transition: all 0.5s ease-out;
+    border-radius: 9px;
+    color: coral;
+}
+
+#current_friends:hover {
+    cursor: pointer;
+    background-color: antiquewhite;
+    opacity: 0.8;
+    transition: all 0.5s ease-out;
+    border-radius: 9px;
+    color: brown;
+}
+
+#friend_request_title {
+    border-top: 2px solid brown;
+    margin-top: 2rem;
+}
+
+#mutual_friends_title {
+    border-bottom: 2px solid brown;
+    margin-top: 2rem;
+}
+
+#wannabee_friends:hover {
+    cursor: pointer;
+    background-color: antiquewhite;
+    opacity: 0.8;
+    transition: all 0.5s ease-out;
+    border-radius: 9px;
+    color: brown;
 }

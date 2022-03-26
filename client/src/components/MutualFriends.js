@@ -47,17 +47,16 @@ const MutualFriends = (props) => {
     return (
         <>
 
-            {err ? <Error className="mt-5" variant="info"> You do not have any mutual Friends</Error> :
+            {err ? <Error className="m-35" variant="info"> You do not have any mutual Friends</Error> :
                 (
-
-                    <Row className="mt-5">
-                        <h2> Mutual Friends</h2>
+                    <>
+                        <h2 id="mutual_friends_title"> Mutual Friends</h2>
                         <ListGroup variant="flush" >
                             <ListGroupItem >
-                                <Row>
+                                <Row style={{ height: "18vh", alignItems: "center" }}>
 
                                     <Col md={2}>
-                                        <Image src={mutualFriens.profile_pic} alt={mutualFriens.first} fluid rounded></Image>
+                                        <Image style={{ height: "18vh" }} src={mutualFriens.profile_pic} alt={mutualFriens.first} fluid rounded></Image>
 
                                     </Col>
 
@@ -77,9 +76,9 @@ const MutualFriends = (props) => {
                         </ListGroup>
 
 
+                    </>
 
 
-                    </Row>
 
                 )
             }

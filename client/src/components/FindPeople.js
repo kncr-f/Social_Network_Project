@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { Row, Col, ListGroup, InputGroup, FormControl, Image, ListGroupItem } from "react-bootstrap";
+import { Row, Col, Card, InputGroup, FormControl } from "react-bootstrap";
 
 
 
@@ -37,7 +37,39 @@ const FindPeople = () => {
             <InputGroup as={Col} className="d-flex justify-content-center w-50">
                 <FormControl placeholder="Find Other People" onChange={(e) => setSearchTerm(e.target.value)} aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
             </InputGroup>
-            <ListGroup variant="flush" >
+
+            <Row>
+                {users.map((user) => (
+                    <Col onClick={() => handleClick(user.id)}
+                        key={user.id}
+                        sm={12} md={6} lg={4} xl={3}>
+
+                        <Card id="findPeople_Item" style={{ height: "58vh" }} className='my-3 p-3 rounded'>
+
+                            <Card.Img style={{ objectFit: "cover", height: "44vh" }} size="sm" src={user.profile_pic ? user.profile_pic : url} alt={user.first} variant="top" />
+
+
+                            <Card.Body>
+
+                                <Card.Title as='div' style={{ textAlign: "center" }}>
+                                    <strong >
+                                        {user.first} {user.last}
+                                    </strong>
+                                </Card.Title>
+
+
+
+                            </Card.Body>
+
+                        </Card>
+
+                    </Col>
+
+                ))}
+            </Row>
+
+
+            {/* <ListGroup variant="flush" >
                 {users.map((user) => (
                     <ListGroupItem key={user.id}>
                         <Row onClick={() => handleClick(user.id)} >
@@ -55,7 +87,7 @@ const FindPeople = () => {
                     </ListGroupItem>
 
                 ))}
-            </ListGroup>
+            </ListGroup> */}
 
 
 

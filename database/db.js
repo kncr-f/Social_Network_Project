@@ -76,7 +76,7 @@ module.exports.getRecentUsers = () => {
     return db.query(`SELECT * 
                     FROM users 
                     ORDER BY created_at DESC
-                    LIMIT 6`);
+                    LIMIT 12`);
 };
 
 module.exports.getMatchingUsers = (val) => {

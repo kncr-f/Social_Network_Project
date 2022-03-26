@@ -95,15 +95,15 @@ const Friends = () => {
             <Row>
 
                 <h2>Current Friends</h2>
-                {currentFriends.length == 0 ? <Error  >You do not have any friends yet</Error> :
+                {currentFriends.length == 0 ? <Error  >You do not have any friend yet</Error> :
 
                     <ListGroup variant="flush">
                         {currentFriends.map((item, index) => (
-                            <ListGroupItem className="col-sm-8 mx-auto h-60 d-inline-block" key={index}>
+                            <ListGroupItem id="current_friends" key={index}>
 
-                                <Row onClick={() => handleClick(item.id)}>
+                                <Row style={{ height: "18vh", alignItems: "center" }} onClick={() => handleClick(item.id)}>
                                     <Col md={2}>
-                                        <Image src={item.profile_pic ? item.profile_pic : url} alt={item.first} fluid rounded></Image>
+                                        <Image style={{ height: "18vh" }} src={item.profile_pic ? item.profile_pic : url} alt={item.first} fluid rounded></Image>
 
                                     </Col>
 
@@ -135,15 +135,15 @@ const Friends = () => {
 
             <Row>
 
-                <h2>Friend-Requests</h2>
-                {wannabeFriend.length == 0 ? <Error>You have no friends requests</Error> :
+                <h2 id="friend_request_title">Friend-Requests</h2>
+                {wannabeFriend.length == 0 ? <Error>You have no friend request...</Error> :
                     <ListGroup variant="flush">
 
                         {wannabeFriend.map((item, index) => (
-                            <ListGroupItem className="col-sm-8 mx-auto h-60 d-inline-block" key={index}>
-                                <Row>
+                            <ListGroupItem id="wannabee_friends" variant="info" key={index}>
+                                <Row onClick={() => handleClick(item.id)} style={{ height: "18vh", alignItems: "center" }}>
                                     <Col md={2}>
-                                        <Image fluid src={item.profile_pic ? item.profile_pic : url} alt={item.first} rounded />
+                                        <Image style={{ height: "18vh" }} fluid src={item.profile_pic ? item.profile_pic : url} alt={item.first} rounded />
 
                                     </Col>
 
@@ -159,7 +159,6 @@ const Friends = () => {
                                     </Col>
 
 
-                                    {/* <button onClick={() => handleAccept(item.id)}>Accept</button> */}
 
                                 </Row>
 

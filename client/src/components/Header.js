@@ -15,7 +15,7 @@ const Header = (props) => {
                     <Navbar.Collapse id="basic-navbar-nav">
 
                         <Nav className="ml-auto">
-                            {/* <Nav.Link href="/login"> <i className="fas fa-arrow-right-to-bracket"> Sign In</i></Nav.Link> */}
+
                             {!props.userId && <Nav.Link href="/login"> <i className="fas fa-arrow-right-to-bracket"> Sing In</i></Nav.Link>}
                             {props.userId && <Nav.Link href="/logout"> <i className="fa-solid fa-arrow-right-from-bracket">Sign Out</i></Nav.Link>}
 

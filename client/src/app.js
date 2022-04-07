@@ -13,9 +13,6 @@ import Loading from "./components/Loading";
 import Friends from "./components/Friends";
 import Chats from "./components/Chats";
 
-
-
-
 export class App extends Component {
     constructor() {
         super();
@@ -37,7 +34,6 @@ export class App extends Component {
         fetch("/user.json")
             .then(resp => resp.json())
             .then((data) => {
-                //console.log('data fetch /user in app', data);
 
                 this.setState({
                     id: data.id,
@@ -162,7 +158,6 @@ export class App extends Component {
                         {this.state.uploaderVisible &&
                             <Uploader
                                 id={this.state.id}
-                                //profile_pic={this.state.profile_pic}
                                 hideUploader={this.toggleUploader}
                                 updateProfilePic={this.updateProfilePic}
                                 url={this.state.profile_pic}

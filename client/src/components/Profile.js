@@ -18,24 +18,7 @@ const Profile = (props) => {
         height: "300px",
         cursor: "pointer"
     };
-    //console.log("props in profile", props);
 
-
-    // const handleDelete = () => {
-    //     fetch("/delete-account", {
-    //         method: "POST",
-
-    //     })
-    //         .then(resp => resp.json())
-    //         .then((data) => {
-    //             console.log('/delete-account', data);
-
-    //         })
-    //         .catch((err) => {
-    //             console.log("/delete-account failed", err);
-
-    //         });
-    // };
 
     const hideDeleteModule = () => {
         setDeleteModule(false);
@@ -80,7 +63,6 @@ const Profile = (props) => {
                             </Row>
 
                             <Row as={Col} sm="3" className="d-flex justify-content-center">
-                                {/* <Button onClick={() => handleDelete()} > Delete Your Account </Button> */}
                                 <Button id="deleteAccount" className="opacity-50" variant="dark " onClick={() => setDeleteModule(true)} > Delete Account </Button>
                             </Row>
 

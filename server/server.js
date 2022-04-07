@@ -66,10 +66,10 @@ io.use(function (socket, next) {
 app.use(express.json());
 
 app.get("/user/id.json", (req, res) => {
-    // console.log('react app is checking if the user is logged in or not');
+
     res.json({
         userId: req.session.userId
-        //userId: undefined
+
     });
 
 });
@@ -80,10 +80,9 @@ app.post("/user/register.json", (req, res) => {
     hash(password).then((hashedPassword) => {
         db.addUser(first, last, email, hashedPassword)
             .then(({ rows }) => {
-                // console.log('rows.....', rows);
                 req.session.userId = rows[0].id;
-                //console.log('req.session', req.session);
                 res.json({ success: true });
+
             }).catch((err) => {
                 console.log("error getting data from database", err);
                 res.json({ success: false });
@@ -96,9 +95,6 @@ app.post("/user/register.json", (req, res) => {
 app.post("/user/login.json", (req, res) => {
     const { email, password } = req.body;
 
-    // if (email === "" || password === "") {
-    //     
-    // } 
 
     db.getUserByEmail(email).then(({ rows }) => {
         console.log(rows);
@@ -171,7 +167,7 @@ app.post("/verify", (req, res) => {
         if (reqBodyCode == sendedCode) {
             hash(new_password)
                 .then((hashedPassword) => {
-                    //console.log(hashedPassword);
+
                     db.updatePassword(hashedPassword, email)
                         .then(() => {
                             console.log("hereeee....");
@@ -210,7 +206,7 @@ app.post("/profile_pic", uploader.single("file"), s3.upload, (req, res) => {
     let id = req.session.userId;
     let url = `https://s3.amazonaws.com/spicedling/${req.file.filename}`;
     db.updateImage(url, id).then(({ rows }) => {
-        //console.log('rows /profile_pic in server....', rows);
+
         res.json({ profile_pic: rows[0].profile_pic });
     }).catch((err) => {
         console.log('error updating image', err);
@@ -220,12 +216,12 @@ app.post("/profile_pic", uploader.single("file"), s3.upload, (req, res) => {
 });
 
 app.post("/user/profile/bio", (req, res) => {
-    // console.log('req.body', req.body);
+
     const { draftBio } = req.body;
 
     db.getBioText(draftBio, req.session.userId)
         .then(({ rows }) => {
-            // console.log("get bio text in server", rows);
+
             res.json(rows[0].bio_text);
         })
         .catch((err) => {
@@ -237,12 +233,11 @@ app.post("/user/profile/bio", (req, res) => {
 app.get("/users.json", (req, res) => {
 
     const searchTerm = req.query.search;
-    //console.log("searchTerm...", searchTerm);
+
     if (searchTerm) {
         db.getMatchingUsers(searchTerm)
             .then(({ rows }) => {
-                // console.log("matching users..", rows);
-                // req.session.userId filter logic
+
                 res.json(rows);
             }).catch((err) => {
                 console.log("err with getting matchingUsers", err);
@@ -289,7 +284,7 @@ app.get("/friendship/:otherUserId", (req, res) => {
 
     db.getFriendRequests(loggedInUserId, otherUserId)
         .then(({ rows }) => {
-            // console.log('rows in/friendship/:id route...', rows[0]);
+
             res.json(rows);
 
         }).catch((err) => {
@@ -492,13 +487,13 @@ io.on('connection', async function (socket) {
     );
 
     socket.on('chatMessageFromClient', function (msg) {
-        //console.log('msg', msg);
+
         db.saveMessage(userId, msg.text).then(function () {
             return db.getUserById(userId);
         }).then(({ rows }) => {
             io.emit(
                 'chatMessageFromServer',
-                /* construct chat message object */
+
                 {
                     first: rows[0].first,
                     last: rows[0].last,

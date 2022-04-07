@@ -78,13 +78,6 @@ const FriendButton = (props) => {
             <Button onClick={() => handleClick()} className="mb-4" variant="primary" type="submit">
                 {friendshipStatu}
             </Button>
-            {/* <button
-                onClick={() => handleClick()}
-                style={{ width: "100px", height: "50px" }}
-                type='submit'
-            >
-                {friendshipStatu}
-            </button> */}
         </>
 
     );

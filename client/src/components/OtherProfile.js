@@ -45,9 +45,6 @@ const OtherProfile = (props) => {
         };
     }, []);
 
-
-
-
     return (
         <>
 
@@ -68,24 +65,14 @@ const OtherProfile = (props) => {
                             </Col>
                             <Col md={6}>
                                 Bio:{otherProfile.bio_text}
-
-
                             </Col>
                             <Col md={2}>
                                 <FriendButton style={{ margin: "10px" }} otherUserId={otherUserId} />
-
                             </Col>
-
                         </Row>
-
                     </ListGroupItem>
 
-
-
-
                     <MutualFriends otherUserId={otherUserId} />
-
-
                 </ListGroup>
             </Row>
 

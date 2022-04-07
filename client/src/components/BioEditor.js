@@ -9,7 +9,7 @@ export default class BioEditor extends React.Component {
             editMode: false,
             draftBio: ''
         };
-        // this.state = {};
+
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,11 +17,10 @@ export default class BioEditor extends React.Component {
     }
 
     handleChange(e) {
-        //console.log('user typed:', e.target.value);
+
 
         this.setState({
 
-            //[e.target.name]: e.target.value,
             draftBio: e.target.value
 
         }, () => {
@@ -49,7 +48,7 @@ export default class BioEditor extends React.Component {
         })
             .then(resp => resp.json())
             .then(data => {
-                //console.log("biotext here seccess.....", data);
+
                 this.props.setBio(data);
 
             })

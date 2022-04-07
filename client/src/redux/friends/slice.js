@@ -5,11 +5,10 @@ export default function friendsReducer(friends = [], action) {
         return friendsList;
 
     } else if (action.type == "friends-and-wannabees/accept") {
-        // console.log("friends inside reducer action accept", friends);
-        // console.log("action.payload.id", action.payload.id);
+
         const updateFriend = friends.map((friend) => {
             console.log("friend in slice.js update friends", friend);
-            //friend.id === (action.payload.id) ? friend = { ...friend, accepted: true } : friend;
+
             if (friend.id === action.payload.id) {
                 friend = {
                     ...friend,
@@ -35,7 +34,7 @@ export default function friendsReducer(friends = [], action) {
 //ACTIONS GO HERE
 
 export function getFriendList(data) {
-    //console.log('data....', data)
+
     return {
         type: "friends-and-wannabees/received",
         payload: data

@@ -6,6 +6,7 @@ main {
     /* background-color: floralwhite; */
     background-color: azure;
     min-height: 84vh;
+    overflow: hidden;
 }
 header .navbar-nav {
     margin-left: auto;

@@ -149,18 +149,11 @@ export default class Reset extends Component {
 
                         <Link className="linkcenter" to="/"> click here return to register?</Link>
                     </Container>
-                    {/* <div>
-                        <h3>Reset Password</h3>
-                        <form>
-                            <input name="code" type="text" placeholder="code" onChange={this.handleChange}></input>
-                            <input name="new_password" type="password" placeholder="new password" onChange={this.handleChange} ></input>
-                            <button onClick={this.handleReset} >Submit</button>
-                        </form>
-                    </div> */}
+
                 </>
             );
         } else if (this.state.view === 3) {
-            // remember to also add a link to login ;)
+
             return (
                 <Container>
                     <h3>Your Password has been successfully changed</h3>

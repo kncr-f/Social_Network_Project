@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-// import { useParams, useHistory } from "react-router";
 import Error from "./Error";
 
 import { Row, Col, Image, ListGroup, ListGroupItem } from "react-bootstrap";
@@ -42,8 +41,6 @@ const MutualFriends = (props) => {
     }, []);
 
 
-
-
     return (
         <>
 
@@ -74,19 +71,10 @@ const MutualFriends = (props) => {
                             </ListGroupItem>
 
                         </ListGroup>
-
-
                     </>
-
-
 
                 )
             }
-
-
-
-
-
         </>
 
     );

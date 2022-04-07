@@ -68,7 +68,7 @@ const Chats = () => {
                                         dateStyle: "long",
                                         timeStyle: "short",
                                     }).format(new Date(item.created_at))}
-                                    {/* {item.created_at} */}
+
                                 </Col>
 
                                 <Col md={6}>
@@ -99,8 +99,7 @@ const Chats = () => {
 
                     </textarea>
 
-                    {/* <textarea id="chatText"></textarea>
-                    <button>Send a Message</button> */}
+
 
                 </Row>
                 <Row>

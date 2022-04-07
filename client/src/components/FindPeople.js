@@ -68,29 +68,6 @@ const FindPeople = () => {
                 ))}
             </Row>
 
-
-            {/* <ListGroup variant="flush" >
-                {users.map((user) => (
-                    <ListGroupItem key={user.id}>
-                        <Row onClick={() => handleClick(user.id)} >
-                            <Col md={2}>
-                                <Image src={user.profile_pic ? user.profile_pic : url} alt={user.first} fluid rounded />
-
-                            </Col>
-                            <Col md={2}>
-                                <h5>{user.first} {user.last}</h5>
-                            </Col>
-                            <Col md={8}>
-                                {user.bio_text}
-                            </Col>
-                        </Row>
-                    </ListGroupItem>
-
-                ))}
-            </ListGroup> */}
-
-
-
         </>
 
     );

@@ -86,11 +86,7 @@ export class Uploader extends Component {
                         </Modal.Dialog>
                     </div>
                 }
-
-
             </>
-
-
         );
     }
 }

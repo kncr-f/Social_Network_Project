@@ -36,7 +36,7 @@ There is a chat room feature the users can click a link and start to chat each o
   
 ## Preview
   
-   **_Registration & Login Pages**
+   **_Registration & Login & Profile Pages**
   
 <img src="client/public/social_register_login.gif">
   

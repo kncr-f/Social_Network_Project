@@ -13,7 +13,7 @@ There is a chat room feature the users can click a link and start to chat each o
 ## Features
   
 -First name, last name, email and password are all required fields. If a login user can not remember the password, user can click a forgot password link.
- With the help of amazon SES a varification code can be sent to user's email and if it is typed correctly, user can reset the password.
+ With the help of amazon SES a verification code can be sent to user's email and if it is typed correctly, user can reset the password.
  
 -Visitors can see recent users and also search by user name. If they click an other users profile they can see mutual friends, if there is.
 

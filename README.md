@@ -6,9 +6,7 @@ This is a Social Network Platform where users can register, log in, update their
 https://my-social-network-app2.herokuapp.com/
 
 ## Overview
-The project presents an online communication platform which users can make friends request to others. 
-They can also accept or reject the friend requests. All possibilities (make a friend request, accept, cancel or pending status) can be seen both of side at the same time. 
-There is a chat room feature the users can click a link and start to chat each other. 
+An online communication platform which users can make, accept or reject friends requests to others. There is a chat room feature the users can chat each other. All possibilities (make a friend request, accept, cancel or pending status) can be seen both of side at the same time. 
 
 ## Features
   
